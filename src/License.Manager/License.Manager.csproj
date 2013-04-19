@@ -57,6 +57,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap-responsive.css" />
+    <Content Include="css\bootstrap-responsive.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="js\lib\angular\angular-resource.js" />
     <Content Include="js\lib\angular\angular-resource.min.js" />
     <Content Include="js\lib\angular\angular.js" />
@@ -348,6 +354,8 @@
     <Content Include="js\lib\angular\i18n\angular-locale_zh.js" />
     <Content Include="js\lib\angular\i18n\angular-locale_zu-za.js" />
     <Content Include="js\lib\angular\i18n\angular-locale_zu.js" />
+    <Content Include="js\lib\bootstrap\bootstrap.js" />
+    <Content Include="js\lib\bootstrap\bootstrap.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
