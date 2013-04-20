@@ -1,5 +1,4 @@
-﻿using System.Web;
-using Funq;
+﻿using Funq;
 using Raven.Client;
 using Raven.Client.Indexes;
 using ServiceStack.Authentication.RavenDb;
@@ -56,7 +55,6 @@ namespace License.Manager.Core
             var documentStore =
                 new Raven.Client.Embedded.EmbeddableDocumentStore()
                     {
-                        DataDirectory = HttpContext.Current.Server.MapPath("~/App_Data/License.Manager.db/"),
                         UseEmbeddedHttpServer = true
                     }
                     .Initialize();
