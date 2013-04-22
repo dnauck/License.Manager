@@ -92,6 +92,7 @@
     <Compile Include="Model\EntityBase.cs" />
     <Compile Include="Persistence\CustomerAllPropertiesIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceInterface\CustomerService.cs" />
     <Compile Include="UserSession.cs" />
   </ItemGroup>
   <ItemGroup />
