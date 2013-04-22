@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="AppHost.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\FindCustomers.cs" />
     <Compile Include="Model\EntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserSession.cs" />
