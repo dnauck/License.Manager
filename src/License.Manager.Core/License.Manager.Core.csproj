@@ -99,6 +99,7 @@
     <Compile Include="Persistence\ProductAllPropertiesIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceInterface\CustomerService.cs" />
+    <Compile Include="ServiceInterface\ProductService.cs" />
     <Compile Include="UserSession.cs" />
   </ItemGroup>
   <ItemGroup />
