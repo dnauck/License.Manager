@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="Model\CreateProduct.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\FindCustomers.cs" />
     <Compile Include="Model\EntityBase.cs" />
