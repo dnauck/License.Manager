@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using License.Manager.Core.Model;
-using License.Manager.Models;
 using Raven.Abstractions.Indexing;
 using Raven.Client.Indexes;
 
