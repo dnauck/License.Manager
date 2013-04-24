@@ -77,6 +77,11 @@
     <Content Include="Global.asax" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="index.html" />
+    <Content Include="js\app.js" />
+    <Content Include="js\AuthController.js" />
+    <Content Include="js\AuthServices.js" />
+    <Content Include="js\http-auth-interceptor.js" />
     <Content Include="js\lib\angular\angular-resource.js" />
     <Content Include="js\lib\angular\angular-resource.min.js" />
     <Content Include="js\lib\angular\angular.js" />
@@ -370,6 +375,7 @@
     <Content Include="js\lib\angular\i18n\angular-locale_zu.js" />
     <Content Include="js\lib\bootstrap\bootstrap.js" />
     <Content Include="js\lib\bootstrap\bootstrap.min.js" />
+    <Content Include="partials\login.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

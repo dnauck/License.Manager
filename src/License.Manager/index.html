@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="license-manager">
+<head>
+    <meta charset="utf-8">
+    <base href="/" />
+    <title>Licensing Manager</title>
+    <meta name="fragment" content="!" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Nauck IT KG">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!--<link href="css/bootstrap-responsive.min.css" rel="stylesheet">-->
+
+    <!--<style type="text/css">
+        input.ng-invalid.ng-dirty {
+            background-color: #FA787E;
+        }
+
+        input.ng-valid.ng-dirty {
+            background-color: #78FA89;
+        }
+    </style>-->
+</head>
+<body ng-controller="AppController">
+    <div class="container">
+
+        <div class="masthead">
+            <h3 class="muted">Licensing Manager</h3>
+            <div class="navbar" ng-hide="isCurrentMainMenuItem('login')">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav">
+                            <li ng-class="{active : isCurrentMainMenuItem('')}"><a ng-href="#!/">Home</a></li>
+                            <li><a ng-href="#" ng-click="logout()">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-view></div>
+        <hr>
+        <div class="footer">
+            <p>&copy; Nauck IT KG 2013</p>
+        </div>
+    </div>
+    <script src="js/lib/angular/angular.js"></script>
+    <script src="js/lib/angular/angular-resource.js"></script>
+    <script src="js/AuthServices.js"></script>
+    <script src="js/AuthController.js"></script>
+    <script src="js/http-auth-interceptor.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
