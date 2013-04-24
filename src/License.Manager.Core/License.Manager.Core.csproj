@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="Model\CustomerValidator.cs" />
     <Compile Include="Model\CreateProduct.cs" />
     <Compile Include="Model\CreateProductValidator.cs" />
     <Compile Include="Model\Customer.cs" />
