@@ -40,11 +40,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.Store(customer);
             documentSession.SaveChanges();
 
-            return
-                new HttpResult
-                    {
-                        StatusCode = HttpStatusCode.NoContent,
-                    };
+            return customer;
         }
 
         public object Delete(Customer customer)
