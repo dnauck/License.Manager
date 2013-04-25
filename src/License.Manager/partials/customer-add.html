@@ -1,0 +1,38 @@
+﻿<div class="jumbotron">
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <form name="AddCustomerForm" class="form-horizontal">
+        <fieldset>
+            <legend>Add Customer</legend>
+
+            <div class="control-group" ng-class="{ error: AddCustomerForm.Name.$invalid }">
+                <label class="control-label" for="Name">Name</label>
+                <div class="controls">
+                    <input type="text" name="Name" class="input-large" ng-model="customer.name" placeholder="Name of the customer..." required>
+                    <span class="help-inline" ng-show="AddCustomerForm.Name.$dirty && AddCustomerForm.Name.$error.required">Please specifiy the customer's name.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddCustomerForm.Company.$invalid }">
+                <label class="control-label" for="Company">Company</label>
+                <div class="controls">
+                    <input type="text" name="Company" class="input-large" ng-model="customer.company" placeholder="The customer's company...">
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddCustomerForm.Email.$invalid }">
+                <label class="control-label" for="inputEmail">Email</label>
+                <div class="controls">
+                    <input type="email" name="Email" class="input-large" ng-model="customer.email" placeholder="Email address…" required>
+                    <span class="help-inline" ng-show="AddCustomerForm.Email.$error.email">This is not a valid email.</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addCustomer(customer)" ng-disabled="AddCustomerForm.$invalid">Add Customer</button>
+                <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

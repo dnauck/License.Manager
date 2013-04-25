@@ -1,0 +1,29 @@
+﻿<div class="jumbotron">
+    <h1>Customers</h1>
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <table class="table table-striped">
+        <caption>List of all customers</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>E-Mail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="cust in customers">
+                <td>{{cust.name}}</td>
+                <td>{{cust.company}}</td>
+                <td>{{cust.email}}</td>
+                <td>
+                    <a ng-href="#!/customers/{{cust.id}}">Details</a>
+                    <a href="" ng-click="deleteCustomer(cust)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-large" ng-href="#!/customers/add"><i class="icon-plus"></i>Add Customer</a>
+</div>
