@@ -6,6 +6,9 @@
                     when('/customers/add', { templateUrl: 'partials/customer-add.html', controller: CustomerAddCtrl }).
                     when('/customers', { templateUrl: 'partials/customer-list.html', controller: CustomerListCtrl }).
                     when('/customers/:id', { templateUrl: 'partials/customer-detail.html', controller: CustomerDetailsCtrl }).
+                    when('/products/add', { templateUrl: 'partials/product-add.html', controller: ProductAddCtrl }).
+                    when('/products', { templateUrl: 'partials/product-list.html', controller: ProductListCtrl }).
+                    when('/products/:id', { templateUrl: 'partials/product-detail.html', controller: ProductDetailsCtrl }).
                     when('/login', { templateUrl: 'partials/login.html', controller: LoginCtrl }).
                     when('/', { templateUrl: 'partials/login.html', controller: LoginCtrl }).
                     otherwise({ redirectTo: '/' });

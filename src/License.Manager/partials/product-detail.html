@@ -1,0 +1,29 @@
+﻿<div class="jumbotron">
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <form name="EditProductForm" class="form-horizontal">
+        <fieldset>
+            <legend>Product details</legend>
+
+            <div class="control-group" ng-class="{ error: EditProductForm.Name.$invalid }">
+                <label class="control-label" for="Name">Name</label>
+                <div class="controls">
+                    <input type="text" id="Name" class="input-large" ng-model="product.name" placeholder="Name of the product..." required>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: EditProductForm.Description.$invalid }">
+                <label class="control-label" for="Description">Description</label>
+                <div class="controls">
+                    <input type="text" id="Description" class="input-large" ng-model="product.description" placeholder="The products's description...">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="updateProduct(product)" ng-disabled="EditProductForm.$invalid">Save changes</button>
+                <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

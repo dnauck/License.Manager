@@ -32,6 +32,7 @@
                     <div class="container">
                         <ul class="nav">
                             <li ng-class="{active : isCurrentMainMenuItem('')}"><a ng-href="#!/">Home</a></li>
+                            <li ng-class="{active : isCurrentMainMenuItem('products')}"><a ng-href="#!/products">Products</a></li>
                             <li ng-class="{active : isCurrentMainMenuItem('customers')}"><a ng-href="#!/customers">Customers</a></li>
                             <li><a ng-href="#" ng-click="logout()">Logout</a></li>
                         </ul>
@@ -51,6 +52,8 @@
     <script src="js/AuthController.js"></script>
     <script src="js/CustomerServices.js"></script>
     <script src="js/CustomerController.js"></script>
+    <script src="js/ProductServices.js"></script>
+    <script src="js/ProductController.js"></script>
     <script src="js/http-auth-interceptor.js"></script>
     <script src="js/app.js"></script>
 </body>

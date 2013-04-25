@@ -1,0 +1,27 @@
+﻿<div class="jumbotron">
+    <h1>Products</h1>
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <table class="table table-striped">
+        <caption>List of all products</caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="prod in products">
+                <td>{{prod.name}}</td>
+                <td>{{prod.description}}</td>
+                <td>
+                    <a ng-href="#!/products/{{prod.id}}">Details</a>
+                    <a href="" ng-click="deleteProduct(prod)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-large" ng-href="#!/products/add"><i class="icon-plus"></i>Add Product</a>
+</div>
