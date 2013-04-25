@@ -33,7 +33,7 @@ function ProductDetailsCtrl($scope, $routeParams, Product) {
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
 
     $scope.id = $routeParams.id;
-    $scope.customer = Product.get({ id: $scope.id },
+    $scope.product = Product.get({ id: $scope.id },
         function(success, getResponseHeaders) {
         },
         function(error, getResponseHeaders) {
