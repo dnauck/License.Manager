@@ -12,7 +12,7 @@ using KeyPair = License.Manager.Core.Model.KeyPair;
 namespace License.Manager.Core.ServiceInterface
 {
     [Authenticate]
-    public class ProductService : ServiceStack.ServiceInterface.Service
+    public class ProductService : Service
     {
         private readonly IDocumentSession documentSession;
 
@@ -66,11 +66,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.Store(product);
             documentSession.SaveChanges();
 
-            return
-                new HttpResult
-                    {
-                        StatusCode = HttpStatusCode.NoContent,
-                    };
+            return product;
         }
 
         public object Delete(Product product)
