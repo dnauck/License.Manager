@@ -10,7 +10,7 @@ using ServiceStack.ServiceInterface;
 namespace License.Manager.Core.ServiceInterface
 {
     [Authenticate]
-    public class CustomerService : ServiceStack.ServiceInterface.Service
+    public class CustomerService : Service
     {
         private readonly IDocumentSession documentSession;
 
@@ -59,7 +59,6 @@ namespace License.Manager.Core.ServiceInterface
         {
             return documentSession.Load<Customer>(customer.Id);
         }
-
 
         public object Get(FindCustomers request)
         {
