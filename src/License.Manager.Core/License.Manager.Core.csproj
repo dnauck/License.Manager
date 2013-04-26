@@ -90,6 +90,7 @@
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\EntityBase.cs" />
     <Compile Include="Model\KeyPair.cs" />
+    <Compile Include="Model\License.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Persistence\CustomerAllPropertiesIndex.cs" />
     <Compile Include="Persistence\ProductAllPropertiesIndex.cs" />
