@@ -87,8 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
-    <Compile Include="Model\CustomerValidator.cs" />
-    <Compile Include="Model\CreateProductValidator.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\EntityBase.cs" />
     <Compile Include="Model\KeyPair.cs" />
@@ -102,6 +100,8 @@
     <Compile Include="ServiceModel\FindCustomers.cs" />
     <Compile Include="ServiceModel\FindProducts.cs" />
     <Compile Include="UserSession.cs" />
+    <Compile Include="Validation\CreateProductValidator.cs" />
+    <Compile Include="Validation\CustomerValidator.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

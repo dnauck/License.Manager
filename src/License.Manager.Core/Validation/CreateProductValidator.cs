@@ -1,6 +1,7 @@
-﻿using ServiceStack.FluentValidation;
+﻿using License.Manager.Core.ServiceModel;
+using ServiceStack.FluentValidation;
 
-namespace License.Manager.Core.Model
+namespace License.Manager.Core.Validation
 {
     public class CreateProductValidator : AbstractValidator<CreateProduct>
     {
