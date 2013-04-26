@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using License.Manager.Core.Model;
 using ServiceStack.ServiceHost;
 
-namespace License.Manager.Core.Model
+namespace License.Manager.Core.ServiceModel
 {
     [Route("/products", "POST")]
     public class CreateProduct : IReturn<Product>

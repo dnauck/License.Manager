@@ -2,6 +2,7 @@
 using System.Net;
 using License.Manager.Core.Model;
 using License.Manager.Core.Persistence;
+using License.Manager.Core.ServiceModel;
 using Raven.Client;
 using ServiceStack.Common;
 using ServiceStack.Common.Web;

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net;
 using License.Manager.Core.Model;
+using License.Manager.Core.ServiceModel;
 using License.Manager.Persistence;
 using Portable.Licensing.Security.Cryptography;
 using Raven.Client;
