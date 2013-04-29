@@ -1,0 +1,33 @@
+﻿<div class="jumbotron">
+    <h1>Licenses</h1>
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <table class="table table-striped">
+        <caption>List of all licenses</caption>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Holder</th>
+                <th>Type</th>
+                <th>Quantity</th>
+                <th>Expiration</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="lic in licenses">
+                <td>{{lic.product.name}}</td>
+                <td>{{lic.customer.name}}</td>
+                <td>{{lic.licenseType}}</td>
+                <td>{{lic.quantity}}</td>
+                <td>{{lic.expiration | date:shortDate}}</td>
+                <td>
+                    <a ng-href="#!/{{entity}}/{{entityId}}/licenses/{{lic.id}}">Details</a>
+                    <a href="" ng-click="deleteLicense(lic)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-large" ng-href="#!/{{entity}}/{{entityId}}/licenses/add"><i class="icon-plus"></i>Add License</a>
+</div>

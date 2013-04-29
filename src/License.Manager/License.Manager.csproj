@@ -81,6 +81,8 @@
     <Content Include="js\app.js" />
     <Content Include="js\AuthController.js" />
     <Content Include="js\AuthServices.js" />
+    <Content Include="js\LicenseController.js" />
+    <Content Include="js\LicenseServices.js" />
     <Content Include="js\CustomerController.js" />
     <Content Include="js\CustomerServices.js" />
     <Content Include="js\http-auth-interceptor.js" />
@@ -379,6 +381,7 @@
     <Content Include="js\lib\bootstrap\bootstrap.min.js" />
     <Content Include="js\ProductController.js" />
     <Content Include="js\ProductServices.js" />
+    <Content Include="partials\license-list.html" />
     <Content Include="partials\customer-add.html" />
     <Content Include="partials\customer-detail.html" />
     <Content Include="partials\customer-list.html" />
