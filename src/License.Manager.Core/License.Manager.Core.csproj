@@ -104,6 +104,7 @@
     <Compile Include="ServiceModel\FindProducts.cs" />
     <Compile Include="ServiceModel\GetLicense.cs" />
     <Compile Include="ServiceModel\CreateLicense.cs" />
+    <Compile Include="ServiceModel\GetLicenseTypes.cs" />
     <Compile Include="ServiceModel\UpdateLicense.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="Validation\CreateProductValidator.cs" />

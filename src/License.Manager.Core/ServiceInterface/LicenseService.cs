@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using License.Manager.Core.Model;
-using License.Manager.Core.Persistence;
 using License.Manager.Core.ServiceModel;
 using Raven.Abstractions.Extensions;
 using Raven.Client;
@@ -20,6 +20,12 @@ namespace License.Manager.Core.ServiceInterface
         public LicenseService(IDocumentSession documentSession)
         {
             this.documentSession = documentSession;
+        }
+
+        public object Get(GetLicenseTypes request)
+        {
+            return Enum.GetValues(typeof (Portable.Licensing.LicenseType))
+                       .Cast<Portable.Licensing.LicenseType>().ToList();
         }
 
         public object Post(CreateLicense license)
