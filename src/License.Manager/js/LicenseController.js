@@ -1,4 +1,4 @@
-function LicenseListCtrl($scope, $location, $routeParams, License) {
+﻿function LicenseListCtrl($scope, $location, $routeParams, License) {
 
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
 
@@ -16,24 +16,24 @@ function LicenseListCtrl($scope, $location, $routeParams, License) {
         $scope.entity = 'customers';
         $scope.licenseUrl = '#!/' + $scope.entity + '/' + $scope.entityId + '/licenses';
     }
-    
+
     $scope.licenses = License.query({ findByEntity: $scope.entity, entityId: $scope.entityId },
-        function(success, getResponseHeaders) {
+        function (success, getResponseHeaders) {
             $scope.notificationAlert.show = false;
         },
-        function(error, getResponseHeaders) {
+        function (error, getResponseHeaders) {
             $scope.notificationAlert.show = true;
             $scope.notificationAlert.type = 'error';
             $scope.notificationAlert.message = error.data.responseStatus.message;
         });
-    
+
     $scope.deleteLicense = function (license) {
         License.delete({ id: license.id },
-            function(success, getResponseHeaders) {
+            function (success, getResponseHeaders) {
                 $scope.licenses.splice($scope.licenses.indexOf(license), 1);
                 $scope.notificationAlert.show = false;
             },
-            function(error, getResponseHeaders) {
+            function (error, getResponseHeaders) {
                 $scope.notificationAlert.show = true;
                 $scope.notificationAlert.type = 'error';
                 $scope.notificationAlert.message = error.data.responseStatus.message;
