@@ -7,6 +7,7 @@ using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.ServiceInterface.Validation;
+using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using ServiceStack.WebHost.Endpoints.Extensions;
 
@@ -25,6 +26,7 @@ namespace License.Manager.Core
 
             //Set JSON web services to return idiomatic JSON camelCase properties
             ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
+            ServiceStack.Text.JsConfig.DateHandler = JsonDateHandler.ISO8601;
 
             Plugins.Add(new CorsFeature()); //Registers global CORS Headers
 
