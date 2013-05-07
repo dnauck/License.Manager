@@ -23,11 +23,11 @@
                 <td>{{lic.quantity}}</td>
                 <td>{{lic.expiration | date:shortDate}}</td>
                 <td>
-                    <a ng-href="#!/{{entity}}/{{entityId}}/licenses/{{lic.id}}">Details</a>
+                    <a ng-href="{{licenseUrl}}/{{lic.id}}">Details</a>
                     <a href="" ng-click="deleteLicense(lic)">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-large" ng-href="#!/{{entity}}/{{entityId}}/licenses/add"><i class="icon-plus"></i>Add License</a>
+    <a class="btn btn-large" ng-href="{{licenseUrl}}/add"><i class="icon-plus"></i>Add License</a>
 </div>

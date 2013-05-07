@@ -4,14 +4,17 @@ function LicenseListCtrl($scope, $location, $routeParams, License) {
 
     $scope.entityId = '';
     $scope.entity = '';
-    
+    $scope.licenseUrl = '#!/licenses';
+
     if ($routeParams.productId) {
         $scope.entityId = $routeParams.productId;
         $scope.entity = 'products';
+        $scope.licenseUrl = '#!/' + $scope.entity + '/' + $scope.entityId + '/licenses';
     }
     else if ($routeParams.customerId) {
         $scope.entityId = $routeParams.customerId;
         $scope.entity = 'customers';
+        $scope.licenseUrl = '#!/' + $scope.entity + '/' + $scope.entityId + '/licenses';
     }
     
     $scope.licenses = License.query({ findByEntity: $scope.entity, entityId: $scope.entityId },
