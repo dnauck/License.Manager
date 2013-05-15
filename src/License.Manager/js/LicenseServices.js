@@ -4,8 +4,11 @@
             'query': {
                 method: 'GET',
                 isArray: true,
-                url: 'api/:findByEntity/:entityId/:productId/licenses',
-                params: { findByEntity: 'products', entityId: '@entityId' }
+                url: 'api/:findByEntity/:entityId/licenses',
+                params: {
+                    findByEntity: 'products',
+                    entityId: '@entityId'
+                }
             },
             'get': { method: 'GET' },
             'update': { method: 'PUT' },
