@@ -3,6 +3,8 @@ using ServiceStack.ServiceHost;
 
 namespace License.Manager.Core.ServiceModel
 {
+    [Route("/licenses/{Id}", "GET, OPTIONS")]
+    [Route("/licenses/{LicenseId}", "GET, OPTIONS")]
     [Route("/products/{ProductId}/licenses/{Id}", "GET, OPTIONS")]
     [Route("/products/{ProductId}/licenses/{LicenseId}", "GET, OPTIONS")]
     [Route("/customers/{CustomerId}/licenses/{Id}", "GET, OPTIONS")]
