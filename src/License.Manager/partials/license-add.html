@@ -1,0 +1,59 @@
+﻿<div class="jumbotron">
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <form name="AddLicenseForm" class="form-horizontal">
+        <fieldset>
+            <legend>Add License</legend>
+
+            <div class="control-group" ng-class="{ error: AddLicenseForm.Product.$invalid }" ng-show="entity != 'products'">
+                <label class="control-label" for="Product">Product</label>
+                <div class="controls">
+                    <select name="Product" class="input-medium" ng-model="license.productId" ng-options="prod.id as prod.name for prod in products" required>
+                    </select>
+                    <span class="help-inline" ng-show="AddLicenseForm.Product.$dirty && AddLicenseForm.Product.$error.required">Please specifiy the license's type.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddLicenseForm.Type.$invalid }">
+                <label class="control-label" for="Type">Type</label>
+                <div class="controls">
+                    <select name="Type" class="input-medium" ng-model="license.licenseType" ng-options="type for type in licenseTypes" required>
+                    </select>
+                    <span class="help-inline" ng-show="AddLicenseForm.Type.$dirty && AddLicenseForm.Type.$error.required">Please specifiy the license's type.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddLicenseForm.Quantity.$invalid }">
+                <label class="control-label" for="Quantity">Quantity</label>
+                <div class="controls">
+                    <input type="number" name="Quantity" class="input-medium" ng-model="license.quantity" min="0" integer required>
+                    <span class="help-inline" ng-show="AddLicenseForm.Quantity.$error.min">The value must be greater than or equal to zero!</span>
+                    <span class="help-inline" ng-show="AddLicenseForm.Quantity.$dirty && AddLicenseForm.Quantity.$error.required">Please specifiy the license's quantity.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddLicenseForm.Expiration.$invalid }">
+                <label class="control-label" for="Expiration">Expiration</label>
+                <div class="controls">
+                    <input type="date" name="Expiration" class="input-medium" ng-model="license.expiration" required>
+                    <span class="help-inline" ng-show="AddLicenseForm.Expiration.$dirty && AddLicenseForm.Expiration.$error.required">Please specifiy the license's expiration date.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddLicenseForm.Customer.$invalid }" ng-show="entity != 'customers'">
+                <label class="control-label" for="Customer">Customer</label>
+                <div class="controls">
+                    <select name="Customer" class="input-medium" ng-model="license.customerId" ng-options="cust.id as cust.name for cust in customers" required>
+                    </select>
+                    <span class="help-inline" ng-show="AddLicenseForm.Customer.$dirty && AddLicenseForm.Customer.$error.required">Please specifiy the license's type.</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addLicense(license)" ng-disabled="AddLicenseForm.$invalid">Add License</button>
+                <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
