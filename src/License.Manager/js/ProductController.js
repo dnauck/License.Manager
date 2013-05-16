@@ -88,8 +88,20 @@ function ProductAddCtrl($scope, $location, Product) {
 
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
     $scope.emptyModel = {};
+    $scope.product = {};
+    $scope.product.productFeatures = [];
+    
+    $scope.addProductFeature = function () {
+        $scope.product.productFeatures.push({ "Value": "New Feature" });
+    };
+
+    $scope.removeProductFeature = function (index) {
+        $scope.product.productFeatures.splice(index, 1);
+    };
 
     $scope.addProduct = function(newProduct) {
+
+        newProduct.productFeatures = toArray(newProduct.productFeatures);
         var prod = new Product(newProduct);
 
         prod.$save({},

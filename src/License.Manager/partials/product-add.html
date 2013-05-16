@@ -27,10 +27,25 @@
                 </div>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" ng-click="addProduct(product)" ng-disabled="AddProductForm.$invalid">Add Product</button>
-                <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+            <div class="control-group">
+                <label class="control-label">Product Features <i class="icon-plus-sign" title="Add new product feature" ng-click="addProductFeature()"></i></label>
+                <div class="controls">
+                    <ul class="unstyled">
+                        <li ng-repeat="feature in product.productFeatures">
+                            <div class="input-append">
+                                <input class="input-large" type="text" ng-model="feature.Value" required>
+                                <button class="btn" type="button" ng-click="removeProductFeature($index)"><i class="icon-remove-sign"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
             </div>
-        </fieldset>
+
+<div class="form-actions">
+    <button type="submit" class="btn btn-primary" ng-click="addProduct(product)" ng-disabled="AddProductForm.$invalid">Add Product</button>
+    <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+</div>
+</fieldset>
     </form>
 </div>
