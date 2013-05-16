@@ -43,6 +43,14 @@ function ProductDetailsCtrl($scope, $routeParams, Product) {
             $scope.notificationAlert.message = error.data.responseStatus.message;
         });
 
+    $scope.addProductFeature = function() {
+        $scope.product.productFeatures.push({ "Value": "New Feature" });
+    };
+
+    $scope.removeProductFeature = function(index) {
+        $scope.product.productFeatures.splice(index, 1);
+    };
+
     $scope.updateProduct = function(product) {
 
         product.productFeatures = toArray(product.productFeatures);
