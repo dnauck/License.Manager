@@ -35,6 +35,7 @@ function ProductDetailsCtrl($scope, $routeParams, Product) {
     $scope.id = $routeParams.id;
     $scope.product = Product.get({ id: $scope.id },
         function(success, getResponseHeaders) {
+            $scope.product.productFeatures = toAssociativeArray($scope.product.productFeatures);
         },
         function(error, getResponseHeaders) {
             $scope.notificationAlert.show = true;
@@ -43,8 +44,13 @@ function ProductDetailsCtrl($scope, $routeParams, Product) {
         });
 
     $scope.updateProduct = function(product) {
+
+        product.productFeatures = toArray(product.productFeatures);
+
         $scope.product = Product.update(product,
             function(success, getResponseHeaders) {
+                $scope.product.productFeatures = toAssociativeArray($scope.product.productFeatures);
+
                 $scope.notificationAlert.show = true;
                 $scope.notificationAlert.type = 'success';
                 $scope.notificationAlert.message = 'Successfuly updated!';
