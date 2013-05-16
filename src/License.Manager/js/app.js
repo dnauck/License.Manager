@@ -44,3 +44,22 @@ app.controller('AppController', function ($scope, $rootScope, $location, $log, A
         $location.path('/');
     });
 });
+
+
+function toAssociativeArray(array) {
+    var associativeArray = [];
+    angular.forEach(array, function (val, key) {
+        associativeArray[key] = { "Key": key, "Value": val };
+    });
+
+    return associativeArray;
+};
+
+function toArray(associativeArray) {
+    var array = [];
+    angular.forEach(associativeArray, function (val, key) {
+        array.push(val.Value);
+    });
+
+    return array;
+};
