@@ -381,6 +381,7 @@
     <Content Include="js\lib\bootstrap\bootstrap.min.js" />
     <Content Include="js\ProductController.js" />
     <Content Include="js\ProductServices.js" />
+    <Content Include="partials\license-add.html" />
     <Content Include="partials\license-list.html" />
     <Content Include="partials\customer-add.html" />
     <Content Include="partials\customer-detail.html" />

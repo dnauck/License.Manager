@@ -47,7 +47,10 @@
 function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, Customer, Product) {
 
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
-    $scope.emptyModel = {};
+    $scope.emptyModel = {
+        productFeatures: [],
+        additionalAttributes: []
+    };
     $scope.license = angular.copy($scope.emptyModel);
 
     $scope.entityId = '';
@@ -72,6 +75,39 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         $scope.customers = Customer.query();
     }
 
+    $scope.addProductFeature = function () {
+        $scope.license.productFeatures.push({ "Key": "", "Value": "Product Feature Value" });
+    };
+
+    $scope.removeProductFeature = function (index) {
+        $scope.license.productFeatures.splice(index, 1);
+    };
+
+    $scope.addAdditionalAttribute = function () {
+        $scope.license.additionalAttributes.push({ "Key": "New Attribute", "Value": "New Attribute Value" });
+    };
+
+    $scope.removeAdditionalAttribute = function (index) {
+        $scope.license.additionalAttributes.splice(index, 1);
+    };
+
+    $scope.productChanged = function (productId) {
+        $scope.product = Product.get({ id: productId },
+            function (success, getResponseHeaders) {
+
+                $scope.license.productFeatures.length = 0; //empty array with creating a new one
+
+                angular.forEach(success.productFeatures, function (val, key) {
+                    $scope.license.productFeatures.push({ "Key": val, "Value": "" });
+                });
+            },
+            function (error, getResponseHeaders) {
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'error';
+                $scope.notificationAlert.message = error.data.responseStatus.message;
+            });
+    };
+
     $http({ method: 'GET', url: 'api/licenses/types' }).
         success(function (data, status, headers, config) {
             $scope.licenseTypes = data;
@@ -83,7 +119,10 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         });
 
     $scope.addLicense = function (newLicense) {
+
         var lic = new License(newLicense);
+        lic.productFeatures = toDictionary(newLicense.productFeatures);
+        lic.additionalAttributes = toDictionary(newLicense.additionalAttributes);
 
         lic.$save({},
             function (success, getResponseHeaders) {

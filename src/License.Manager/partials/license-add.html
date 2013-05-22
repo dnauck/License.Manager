@@ -9,7 +9,7 @@
             <div class="control-group" ng-class="{ error: AddLicenseForm.Product.$invalid }" ng-show="entity != 'products'">
                 <label class="control-label" for="Product">Product</label>
                 <div class="controls">
-                    <select name="Product" class="input-medium" ng-model="license.productId" ng-options="prod.id as prod.name for prod in products" required>
+                    <select name="Product" class="input-medium" ng-model="license.productId" ng-change="productChanged(license.productId)" ng-options="prod.id as prod.name for prod in products" required>
                     </select>
                     <span class="help-inline" ng-show="AddLicenseForm.Product.$dirty && AddLicenseForm.Product.$error.required">Please specifiy the license's type.</span>
                 </div>
@@ -47,6 +47,38 @@
                     <select name="Customer" class="input-medium" ng-model="license.customerId" ng-options="cust.id as cust.name for cust in customers" required>
                     </select>
                     <span class="help-inline" ng-show="AddLicenseForm.Customer.$dirty && AddLicenseForm.Customer.$error.required">Please specifiy the license's type.</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Product Features <i class="icon-plus-sign" title="Add new product feature" ng-click="addProductFeature()"></i></label>
+                <div class="controls">
+                    <ul class="unstyled">
+                        <li ng-repeat="feature in license.productFeatures">
+                            <div class="input-append">
+                                <select class="span3" ng-model="feature.Key" ng-options="feature for feature in product.productFeatures" required></select>
+                                <input class="span2" type="text" ng-model="feature.Value" required>
+                                <button class="btn" type="button" ng-click="removeProductFeature($index)"><i class="icon-remove-sign"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Additional Attributes <i class="icon-plus-sign" title="Add new attribute" ng-click="addAdditionalAttribute()"></i></label>
+                <div class="controls">
+                    <ul class="unstyled">
+                        <li ng-repeat="attr in license.additionalAttributes">
+                            <div class="input-append">
+                                <input class="span3" type="text" ng-model="attr.Key" required>
+                                <input class="span2" type="text" ng-model="attr.Value" required>
+                                <button class="btn" type="button" ng-click="removeAdditionalAttribute($index)"><i class="icon-remove-sign"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
 
