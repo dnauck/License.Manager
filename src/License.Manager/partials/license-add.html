@@ -27,7 +27,7 @@
             <div class="control-group" ng-class="{ error: AddLicenseForm.Quantity.$invalid }">
                 <label class="control-label" for="Quantity">Quantity</label>
                 <div class="controls">
-                    <input type="number" name="Quantity" class="input-medium" ng-model="license.quantity" min="0" integer required>
+                    <input type="number" name="Quantity" class="input-small" ng-model="license.quantity" min="0" integer required>
                     <span class="help-inline" ng-show="AddLicenseForm.Quantity.$error.min">The value must be greater than or equal to zero!</span>
                     <span class="help-inline" ng-show="AddLicenseForm.Quantity.$dirty && AddLicenseForm.Quantity.$error.required">Please specifiy the license's quantity.</span>
                 </div>
