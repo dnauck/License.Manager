@@ -31,6 +31,37 @@ namespace License.Manager.Core.ServiceInterface
                        .Cast<Portable.Licensing.LicenseType>().ToList();
         }
 
+        public object Post(IssueLicense issueRequest)
+        {
+            var machineKeySection = WebConfigurationManager.GetSection("system.web/machineKey") as MachineKeySection;
+            if (machineKeySection == null || StringComparer.OrdinalIgnoreCase.Compare(machineKeySection.Decryption, "Auto") == 0)
+                throw new Exception(
+                    "The machine key configuration section is missing or auto generated. Please refer http://support.microsoft.com/kb/312906 on how to create keys for the machine key configuration section.");
+
+            var license = documentSession.Load<Model.License>(issueRequest.Id);
+
+            var licenseFile =
+                Portable.Licensing.License.New()
+                        .WithUniqueIdentifier(license.LicenseId)
+                        .As(license.LicenseType)
+                        .WithMaximumUtilization(license.Quantity)
+                        .ExpiresAt(license.Expiration)
+                        .CreateAndSignWithPrivateKey(license.Product.KeyPair.EncryptedPrivateKey,
+                                                     machineKeySection.DecryptionKey);
+
+            var issueToken = Guid.NewGuid().ToString();
+            cacheClient.Set(UrnId.Create<Model.License>("IssueToken", issueToken), licenseFile, new TimeSpan(0, 5, 0));
+
+            return new HttpResult
+                       {
+                           StatusCode = HttpStatusCode.Created,
+                           Headers =
+                               {
+                                   {HttpHeaders.Location, Request.AbsoluteUri.AddQueryParam("token", issueToken)}
+                               }
+                       };
+        }
+
         public object Post(CreateLicense license)
         {
             var newLicense = new Model.License().PopulateWith(license);
