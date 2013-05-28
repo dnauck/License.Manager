@@ -24,7 +24,8 @@
                 <td>{{lic.expiration | date:shortDate}}</td>
                 <td>
                     <a ng-href="{{licenseUrl}}/{{lic.id}}">Details</a>
-                    <a href="" ng-click="deleteLicense(lic)">Delete</a>
+                    <a ng-href="#" ng-click="issueLicense(lic)">Issue</a>
+                    <a ng-href="#" ng-click="deleteLicense(lic)">Delete</a>
                 </td>
             </tr>
         </tbody>

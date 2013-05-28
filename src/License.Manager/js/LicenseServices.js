@@ -12,6 +12,10 @@
             },
             'get': { method: 'GET' },
             'update': { method: 'PUT' },
-            'delete': { method: 'DELETE' }
+            'delete': { method: 'DELETE' },
+            'issue': {
+                method: 'POST',
+                url: 'api/licenses/issue'
+            }
         });
     });

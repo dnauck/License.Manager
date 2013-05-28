@@ -1,4 +1,4 @@
-﻿function LicenseListCtrl($scope, $location, $routeParams, License) {
+﻿function LicenseListCtrl($scope, $location, $routeParams, $window, $log, License) {
 
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
 
@@ -26,6 +26,19 @@
             $scope.notificationAlert.type = 'error';
             $scope.notificationAlert.message = error.data.responseStatus.message;
         });
+
+    $scope.issueLicense = function (license) {
+        License.issue({ id: license.id },
+            function (success, getResponseHeaders) {
+                $scope.notificationAlert.show = false;
+                $window.open(getResponseHeaders('location'));
+            },
+            function (error, getResponseHeaders) {
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'error';
+                $scope.notificationAlert.message = error.data.responseStatus.message;
+            });
+    };
 
     $scope.deleteLicense = function (license) {
         License.delete({ id: license.id },
