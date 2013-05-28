@@ -29,7 +29,7 @@ namespace License.Manager.Core.ServiceInterface
 
         public object Get(GetLicenseTypes request)
         {
-            return Enum.GetValues(typeof (Portable.Licensing.LicenseType))
+            return Enum.GetValues(typeof(Portable.Licensing.LicenseType))
                        .Cast<Portable.Licensing.LicenseType>().ToList();
         }
 
