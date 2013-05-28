@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Configuration;
+using System.Linq;
 using System.Net;
+using System.Web.Configuration;
 using License.Manager.Core.Model;
 using License.Manager.Core.ServiceModel;
 using License.Manager.Persistence;
@@ -24,13 +27,18 @@ namespace License.Manager.Core.ServiceInterface
 
         public object Post(CreateProduct newProduct)
         {
+            var machineKeySection = WebConfigurationManager.GetSection("system.web/machineKey") as MachineKeySection;
+            if (machineKeySection == null || StringComparer.OrdinalIgnoreCase.Compare(machineKeySection.Decryption, "Auto") == 0)
+                throw new Exception(
+                    "The machine key configuration section is missing or auto generated. Please refer http://support.microsoft.com/kb/312906 on how to create keys for the machine key configuration section.");
+
             var product =
                 new Product
                     {
                         Name = newProduct.Name,
                         Description = newProduct.Description,
                         ProductFeatures = newProduct.ProductFeatures,
-                        KeyPair = GenerateKeyPair(newProduct.PrivateKeyPassPhrase)
+                        KeyPair = GenerateKeyPair(machineKeySection.DecryptionKey)
                     };
 
             documentSession.Store(product);

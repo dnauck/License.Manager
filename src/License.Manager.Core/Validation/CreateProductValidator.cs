@@ -8,7 +8,6 @@ namespace License.Manager.Core.Validation
         public CreateProductValidator()
         {
             RuleFor(p => p.Name).NotEmpty();
-            RuleFor(p => p.PrivateKeyPassPhrase).NotEmpty();
         }
     }
 }
