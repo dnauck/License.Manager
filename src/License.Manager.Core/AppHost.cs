@@ -2,6 +2,8 @@
 using Raven.Client;
 using Raven.Client.Indexes;
 using ServiceStack.Authentication.RavenDb;
+using ServiceStack.CacheAccess;
+using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
@@ -42,6 +44,8 @@ namespace License.Manager.Core
 
             //This method scans the assembly for validators
             container.RegisterValidators(typeof(AppHost).Assembly);
+
+            container.Register<ICacheClient>(new MemoryCacheClient());
 
             // register RavenDB dependencies
             ConfigureRavenDb(container);
