@@ -67,3 +67,12 @@ function toArray(associativeArray) {
 
     return array;
 };
+
+function toDictionary(associativeArray) {
+    var array = {};
+    angular.forEach(associativeArray, function (val, key) {
+        array[val.Key] = val.Value;
+    });
+
+    return array;
+};
