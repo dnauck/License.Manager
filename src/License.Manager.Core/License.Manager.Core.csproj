@@ -100,6 +100,7 @@
     <Compile Include="ServiceInterface\CustomerService.cs" />
     <Compile Include="ServiceInterface\ProductService.cs" />
     <Compile Include="ServiceModel\CreateProduct.cs" />
+    <Compile Include="ServiceModel\DownloadLicense.cs" />
     <Compile Include="ServiceModel\FindCustomers.cs" />
     <Compile Include="ServiceModel\FindLicenses.cs" />
     <Compile Include="ServiceModel\FindProducts.cs" />

@@ -62,6 +62,23 @@ namespace License.Manager.Core.ServiceInterface
                        };
         }
 
+        public object Get(DownloadLicense downloadRequest)
+        {
+            var cacheKey = UrnId.Create<Model.License>("IssueToken", downloadRequest.Token.ToString());
+            var license = cacheClient.Get<Portable.Licensing.License>(cacheKey);
+
+            if (license == null)
+                return new HttpResult(HttpStatusCode.NotFound);
+
+            var responseStream = new MemoryStream();
+            license.Save(responseStream);
+
+            var response = new HttpResult(responseStream, "application/xml");
+            response.Headers[HttpHeaders.ContentDisposition] = "attachment; filename=License.lic";
+
+            return response;
+        }
+
         public object Post(CreateLicense license)
         {
             var newLicense = new Model.License().PopulateWith(license);
