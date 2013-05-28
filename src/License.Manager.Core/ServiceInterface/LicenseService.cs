@@ -6,6 +6,7 @@ using License.Manager.Core.ServiceModel;
 using Raven.Abstractions.Extensions;
 using Raven.Client;
 using Raven.Client.Linq;
+using ServiceStack.CacheAccess;
 using ServiceStack.Common;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceInterface;
@@ -16,10 +17,12 @@ namespace License.Manager.Core.ServiceInterface
     public class LicenseService : Service
     {
         private readonly IDocumentSession documentSession;
+        private readonly ICacheClient cacheClient;
 
-        public LicenseService(IDocumentSession documentSession)
+        public LicenseService(IDocumentSession documentSession, ICacheClient cacheClient)
         {
             this.documentSession = documentSession;
+            this.cacheClient = cacheClient;
         }
 
         public object Get(GetLicenseTypes request)
