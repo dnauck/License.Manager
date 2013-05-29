@@ -48,6 +48,14 @@ namespace License.Manager.Core.ServiceInterface
                         .As(license.LicenseType)
                         .WithMaximumUtilization(license.Quantity)
                         .ExpiresAt(license.Expiration)
+                        .LicensedTo(customer =>
+                                        {
+                                            customer.Name = license.Customer.Name;
+                                            customer.Email = license.Customer.Email;
+                                            customer.Company = license.Customer.Company;
+                                        })
+                        .WithProductFeatures(license.ProductFeatures)
+                        .WithAdditionalAttributes(license.AdditionalAttributes)
                         .CreateAndSignWithPrivateKey(license.Product.KeyPair.EncryptedPrivateKey,
                                                      machineKeySection.DecryptionKey);
 
