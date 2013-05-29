@@ -29,8 +29,7 @@ namespace License.Manager.Core.ServiceInterface
         {
             var machineKeySection = WebConfigurationManager.GetSection("system.web/machineKey") as MachineKeySection;
             if (machineKeySection == null || StringComparer.OrdinalIgnoreCase.Compare(machineKeySection.Decryption, "Auto") == 0)
-                throw new Exception(
-                    "The machine key configuration section is missing or auto generated. Please refer http://support.microsoft.com/kb/312906 on how to create keys for the machine key configuration section.");
+                throw new Exception(Properties.Resources.InvalidMachineKeySection);
 
             var product =
                 new Product
