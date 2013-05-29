@@ -61,6 +61,8 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
 
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
     $scope.emptyModel = {
+        productId: '',
+        customerId: '',
         productFeatures: [],
         additionalAttributes: []
     };
@@ -104,8 +106,12 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         $scope.license.additionalAttributes.splice(index, 1);
     };
 
-    $scope.productChanged = function (productId) {
-        $scope.product = Product.get({ id: productId },
+    $scope.$watch('license.productId', function (newValue, oldValue) {
+        
+        if (angular.isUndefined(newValue) || newValue < 1)
+            return;
+        
+        $scope.product = Product.get({ id: newValue },
             function (success, getResponseHeaders) {
 
                 $scope.license.productFeatures.length = 0; //empty array with creating a new one
@@ -119,8 +125,8 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
                 $scope.notificationAlert.type = 'error';
                 $scope.notificationAlert.message = error.data.responseStatus.message;
             });
-    };
-
+    });
+    
     $http({ method: 'GET', url: 'api/licenses/types' }).
         success(function (data, status, headers, config) {
             $scope.licenseTypes = data;
