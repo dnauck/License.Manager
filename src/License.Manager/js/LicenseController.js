@@ -40,13 +40,13 @@
             });
     };
 
-    $scope.deleteLicense = function (license) {
+    $scope.deleteLicense = function(license) {
         License.delete({ id: license.id },
-            function (success, getResponseHeaders) {
+            function(success, getResponseHeaders) {
                 $scope.licenses.splice($scope.licenses.indexOf(license), 1);
                 $scope.notificationAlert.show = false;
             },
-            function (error, getResponseHeaders) {
+            function(error, getResponseHeaders) {
                 $scope.notificationAlert.show = true;
                 $scope.notificationAlert.type = 'error';
                 $scope.notificationAlert.message = error.data.responseStatus.message;
