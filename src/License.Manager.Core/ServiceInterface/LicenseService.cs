@@ -83,8 +83,8 @@ namespace License.Manager.Core.ServiceInterface
                         .CreateAndSignWithPrivateKey(license.Product.KeyPair.EncryptedPrivateKey,
                                                      machineKeySection.DecryptionKey);
 
-            var issueToken = Guid.NewGuid().ToString();
-            cacheClient.Set(UrnId.Create<Model.License>("IssueToken", issueToken), licenseFile, new TimeSpan(0, 5, 0));
+            var issueToken = Guid.NewGuid();
+            cacheClient.Set(UrnId.Create<Model.License>("IssueToken", issueToken.ToString()), licenseFile, new TimeSpan(0, 5, 0));
 
             return new HttpResult(new IssueLicenseResponse {Token = issueToken})
                        {

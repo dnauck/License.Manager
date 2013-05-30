@@ -29,6 +29,6 @@ namespace License.Manager.Core.ServiceModel
 {
     public class IssueLicenseResponse
     {
-        public string Token { get; set; }
+        public Guid Token { get; set; }
     }
 }
