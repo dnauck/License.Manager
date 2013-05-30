@@ -390,6 +390,7 @@
     <Content Include="partials\product-add.html" />
     <Content Include="partials\product-detail.html" />
     <Content Include="partials\product-list.html" />
+    <Content Include="favicon.ico" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
