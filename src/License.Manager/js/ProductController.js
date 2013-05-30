@@ -13,7 +13,7 @@
         });
 
     $scope.deleteProduct = function(product) {
-        Product.delete({ id: customer.id },
+        Product.delete({ id: product.id },
             function(success, getResponseHeaders) {
                 $scope.products.splice($scope.products.indexOf(product), 1);
                 $scope.notificationAlert.show = false;
