@@ -23,6 +23,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System.Collections.Generic;
+using System.Linq;
 using License.Manager.Core.ServiceModel;
 using ServiceStack.FluentValidation;
 
@@ -33,6 +35,15 @@ namespace License.Manager.Core.Validation
         public CreateProductValidator()
         {
             RuleFor(p => p.Name).NotEmpty();
+            RuleFor(p => p.ProductFeatures).Must(BeUniqueAndNotEmpty)
+                .WithMessage("{PropertyName} must be unique.");
+        }
+
+        private static bool BeUniqueAndNotEmpty(List<string> values)
+        {
+            var allNotEmpty = values.All(x => !string.IsNullOrWhiteSpace(x));
+            var unique = values.Distinct().Count() == values.Count;
+            return allNotEmpty && unique;
         }
     }
 }
