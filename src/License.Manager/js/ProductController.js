@@ -100,9 +100,9 @@ function ProductAddCtrl($scope, $location, Product) {
     };
 
     $scope.addProduct = function(newProduct) {
-
-        newProduct.productFeatures = toArray(newProduct.productFeatures);
+        
         var prod = new Product(newProduct);
+        prod.productFeatures = toArray(newProduct.productFeatures);
 
         prod.$save({},
             function(success, getResponseHeaders) {
