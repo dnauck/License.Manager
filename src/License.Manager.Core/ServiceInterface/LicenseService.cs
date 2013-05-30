@@ -86,7 +86,7 @@ namespace License.Manager.Core.ServiceInterface
             var issueToken = Guid.NewGuid().ToString();
             cacheClient.Set(UrnId.Create<Model.License>("IssueToken", issueToken), licenseFile, new TimeSpan(0, 5, 0));
 
-            return new HttpResult
+            return new HttpResult(new IssueLicenseResponse {Token = issueToken})
                        {
                            StatusCode = HttpStatusCode.Created,
                            Headers =
