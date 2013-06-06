@@ -114,7 +114,7 @@ namespace License.Manager.Core.ServiceInterface
             if (product == null)
                 HttpError.NotFound("Product not found!");
 
-            documentSession.Delete(documentSession.Load<Product>(product.Id));
+            documentSession.Delete(product);
             documentSession.SaveChanges();
 
             return
