@@ -29,7 +29,7 @@ using ServiceStack.ServiceHost;
 
 namespace License.Manager.Core.ServiceModel
 {
-    [Route("/customers", "GET")]
+    [Route("/customers", "GET, OPTIONS")]
     //[Route("/customers/page/{Page}")]
     //[Route("/products/{Id}/customers", "GET")]
     public class FindCustomers : IReturn<List<Customer>>

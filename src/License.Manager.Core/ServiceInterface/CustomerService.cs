@@ -45,8 +45,10 @@ namespace License.Manager.Core.ServiceInterface
             this.documentSession = documentSession;
         }
 
-        public object Post(Customer customer)
+        public object Post(CreateCustomer request)
         {
+            var customer = new Customer().PopulateWith(request);
+
             documentSession.Store(customer);
             documentSession.SaveChanges();
 
@@ -61,17 +63,27 @@ namespace License.Manager.Core.ServiceInterface
                     };
         }
 
-        public object Put(Customer customer)
+        public object Put(UpdateCustomer request)
         {
+            var customer = documentSession.Load<Customer>(request.Id);
+            if (customer == null)
+                HttpError.NotFound("Customer not found!");
+
+            customer.PopulateWith(request);
+
             documentSession.Store(customer);
             documentSession.SaveChanges();
 
-            return customer;
+            return request.PopulateWith(customer);
         }
 
-        public object Delete(Customer customer)
+        public object Delete(UpdateCustomer request)
         {
-            documentSession.Delete(documentSession.Load<Customer>(customer.Id));
+            var customer = documentSession.Load<Customer>(request.Id);
+            if (customer == null)
+                HttpError.NotFound("Customer not found!");
+
+            documentSession.Delete(customer);
             documentSession.SaveChanges();
 
             return
@@ -81,9 +93,13 @@ namespace License.Manager.Core.ServiceInterface
                     };
         }
 
-        public object Get(Customer customer)
+        public object Get(GetCustomer request)
         {
-            return documentSession.Load<Customer>(customer.Id);
+            var customer = documentSession.Load<Customer>(request.Id);
+            if (customer == null)
+                HttpError.NotFound("Customer not found!");
+
+            return customer;
         }
 
         public object Get(FindCustomers request)
@@ -99,7 +115,9 @@ namespace License.Manager.Core.ServiceInterface
             if (!string.IsNullOrWhiteSpace(request.Email))
                 query = query.Search(c => c.Query, request.Email);
 
-            return query.OfType<Customer>().ToList();
+            return query
+                .OfType<Customer>()
+                .ToList();
         }
     }
 }

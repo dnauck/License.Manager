@@ -115,6 +115,9 @@
     <Compile Include="ServiceInterface\LicenseService.cs" />
     <Compile Include="ServiceInterface\CustomerService.cs" />
     <Compile Include="ServiceInterface\ProductService.cs" />
+    <Compile Include="ServiceModel\UpdateCustomer.cs" />
+    <Compile Include="ServiceModel\CreateCustomer.cs" />
+    <Compile Include="ServiceModel\GetCustomer.cs" />
     <Compile Include="ServiceModel\UpdateProduct.cs" />
     <Compile Include="ServiceModel\GetProduct.cs" />
     <Compile Include="ServiceModel\IssueLicenseResponse.cs" />

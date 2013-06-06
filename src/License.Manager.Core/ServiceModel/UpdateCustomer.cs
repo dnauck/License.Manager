@@ -23,10 +23,15 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace License.Manager.Core.Model
+using License.Manager.Core.Model;
+using ServiceStack.ServiceHost;
+
+namespace License.Manager.Core.ServiceModel
 {
-    public class Customer : EntityBase
+    [Route("/customers/{Id}", "PUT, DELETE, OPTIONS")]
+    public class UpdateCustomer : IReturn<Customer>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Company { get; set; }
         public string Email { get; set; }
