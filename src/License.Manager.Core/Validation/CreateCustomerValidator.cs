@@ -23,14 +23,14 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using License.Manager.Core.Model;
+using License.Manager.Core.ServiceModel;
 using ServiceStack.FluentValidation;
 
 namespace License.Manager.Core.Validation
 {
-    public class CustomerValidator : AbstractValidator<Customer>
+    public class CreateCustomerValidator : AbstractValidator<CreateCustomer>
     {
-        public CustomerValidator()
+        public CreateCustomerValidator()
         {
             RuleFor(p => p.Name).NotEmpty();
             RuleFor(p => p.Email).EmailAddress().NotEmpty();

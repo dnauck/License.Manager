@@ -134,7 +134,7 @@
     <Compile Include="ServiceModel\UpdateLicense.cs" />
     <Compile Include="UserSession.cs" />
     <Compile Include="Validation\CreateProductValidator.cs" />
-    <Compile Include="Validation\CustomerValidator.cs" />
+    <Compile Include="Validation\CreateCustomerValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
