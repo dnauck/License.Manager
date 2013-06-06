@@ -23,16 +23,32 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
+using System.Linq;
+using License.Manager.Core.Model;
+using Raven.Abstractions.Indexing;
+using Raven.Client.Indexes;
 
-namespace License.Manager.Core.Model
+namespace License.Manager.Core.Persistence
 {
-    public class Product : EntityBase
+    public class Product_ByNameOrDescription : AbstractIndexCreationTask<Product, Product_ByNameOrDescription.Result>
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public KeyPair KeyPair { get; set; }
+        public class Result
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+        }
 
-        public List<string> ProductFeatures { get; set; }
+        public Product_ByNameOrDescription()
+        {
+            Map = products => from product in products
+                              select new
+                                         {
+                                             product.Name,
+                                             product.Description,
+                                         };
+
+            Index(p => p.Name, FieldIndexing.Analyzed);
+            Index(x => x.Description, FieldIndexing.Analyzed);
+        }
     }
 }

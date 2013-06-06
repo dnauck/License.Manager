@@ -23,16 +23,13 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
+using ServiceStack.ServiceHost;
 
-namespace License.Manager.Core.Model
+namespace License.Manager.Core.ServiceModel
 {
-    public class Product : EntityBase
+    [Route("/products/{Id}", "GET, OPTIONS")]
+    public class GetProduct : IReturn<ProductDto>
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public KeyPair KeyPair { get; set; }
-
-        public List<string> ProductFeatures { get; set; }
+        public int Id { get; set; }
     }
 }

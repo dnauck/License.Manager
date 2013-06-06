@@ -28,8 +28,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Configuration;
 using License.Manager.Core.Model;
+using License.Manager.Core.Persistence;
 using License.Manager.Core.ServiceModel;
-using License.Manager.Persistence;
 using Portable.Licensing.Security.Cryptography;
 using Raven.Client;
 using ServiceStack.Common;
@@ -49,18 +49,19 @@ namespace License.Manager.Core.ServiceInterface
             this.documentSession = documentSession;
         }
 
-        public object Post(CreateProduct newProduct)
+        public object Post(CreateProduct request)
         {
             var machineKeySection = WebConfigurationManager.GetSection("system.web/machineKey") as MachineKeySection;
-            if (machineKeySection == null || StringComparer.OrdinalIgnoreCase.Compare(machineKeySection.Decryption, "Auto") == 0)
+            if (machineKeySection == null ||
+                StringComparer.OrdinalIgnoreCase.Compare(machineKeySection.Decryption, "Auto") == 0)
                 throw new Exception(Properties.Resources.InvalidMachineKeySection);
 
             var product =
                 new Product
                     {
-                        Name = newProduct.Name,
-                        Description = newProduct.Description,
-                        ProductFeatures = newProduct.ProductFeatures,
+                        Name = request.Name,
+                        Description = request.Description,
+                        ProductFeatures = request.ProductFeatures,
                         KeyPair = GenerateKeyPair(machineKeySection.DecryptionKey)
                     };
 
@@ -68,7 +69,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.SaveChanges();
 
             return
-                new HttpResult(product)
+                new HttpResult(new ProductDto().PopulateWith(product))
                     {
                         StatusCode = HttpStatusCode.Created,
                         Headers =
@@ -93,16 +94,26 @@ namespace License.Manager.Core.ServiceInterface
             return result;
         }
 
-        public object Put(Product product)
+        public object Put(UpdateProduct request)
         {
-            documentSession.Store(product);
+            var product = documentSession.Load<Product>(request.Id);
+            if (product == null)
+                HttpError.NotFound("Product not found!");
+
+            product.PopulateWith(request);
+
+            documentSession.Store(request);
             documentSession.SaveChanges();
 
-            return product;
+            return request.PopulateWith(product);
         }
 
-        public object Delete(Product product)
+        public object Delete(UpdateProduct request)
         {
+            var product = documentSession.Load<Product>(request.Id);
+            if (product == null)
+                HttpError.NotFound("Product not found!");
+
             documentSession.Delete(documentSession.Load<Product>(product.Id));
             documentSession.SaveChanges();
 
@@ -113,22 +124,28 @@ namespace License.Manager.Core.ServiceInterface
                     };
         }
 
-        public object Get(Product product)
+        public object Get(GetProduct request)
         {
-            return documentSession.Load<Product>(product.Id);
+            var product = documentSession.Load<Product>(request.Id);
+            if (product == null)
+                HttpError.NotFound("Product not found!");
+
+            return product;
         }
 
         public object Get(FindProducts request)
         {
-            var query = documentSession.Query<ProductAllPropertiesIndex.Result, ProductAllPropertiesIndex>();
+            var query = documentSession.Query<Product_ByNameOrDescription.Result, Product_ByNameOrDescription>();
 
             if (!string.IsNullOrWhiteSpace(request.Name))
-                query = query.Search(c => c.Query, request.Name);
+                query = query.Search(c => c.Name, request.Name);
 
             if (!string.IsNullOrWhiteSpace(request.Description))
-                query = query.Search(c => c.Query, request.Description);
+                query = query.Search(c => c.Name, request.Description);
 
-            return query.OfType<Product>().ToList();
+            return query
+                .OfType<Product>()
+                .ToList();
         }
     }
 }

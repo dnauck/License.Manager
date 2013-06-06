@@ -24,14 +24,13 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.Collections.Generic;
-using License.Manager.Core.Model;
 using ServiceStack.ServiceHost;
 
 namespace License.Manager.Core.ServiceModel
 {
-    [Route("/products", "GET")]
+    [Route("/products", "GET, OPTIONS")]
     //[Route("/products/page/{Page}")]
-    public class FindProducts : IReturn<List<Product>>
+    public class FindProducts : IReturn<List<ProductDto>>
     {
         public string Name { get; set; }
         public string Description { get; set; }
