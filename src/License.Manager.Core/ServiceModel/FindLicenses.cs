@@ -25,7 +25,6 @@
 
 using System;
 using System.Collections.Generic;
-using Portable.Licensing;
 using ServiceStack.ServiceHost;
 
 namespace License.Manager.Core.ServiceModel
@@ -36,8 +35,8 @@ namespace License.Manager.Core.ServiceModel
     //[Route("/licenses/page/{Page}")]
     public class FindLicenses : IReturn<List<LicenseDto>>
     {
-        public LicenseType LicenseType { get; set; }
-        public DateTime Expiration { get; set; }
+        //public LicenseType? LicenseType { get; set; }
+        //public DateTime? Expiration { get; set; }
         public int? CustomerId { get; set; }
         public int? ProductId { get; set; }
 
