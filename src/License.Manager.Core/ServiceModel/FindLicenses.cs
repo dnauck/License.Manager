@@ -34,7 +34,7 @@ namespace License.Manager.Core.ServiceModel
     [Route("/products/{ProductId}/licenses", "GET, OPTIONS")]
     [Route("/customers/{CustomerId}/licenses", "GET, OPTIONS")]
     //[Route("/licenses/page/{Page}")]
-    public class FindLicenses : IReturn<List<Model.License>>
+    public class FindLicenses : IReturn<List<LicenseDto>>
     {
         public LicenseType LicenseType { get; set; }
         public DateTime Expiration { get; set; }

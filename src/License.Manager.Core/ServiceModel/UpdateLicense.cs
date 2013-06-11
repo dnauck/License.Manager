@@ -33,7 +33,7 @@ namespace License.Manager.Core.ServiceModel
     [Route("/licenses/{Id}", "PUT, DELETE, OPTIONS")]
     [Route("/products/{ProductId}/licenses/{Id}", "PUT, DELETE, OPTIONS")]
     [Route("/customers/{CustomerId}/licenses/{Id}", "PUT, DELETE, OPTIONS")]
-    public class UpdateLicense : IReturn<Model.License>
+    public class UpdateLicense : IReturn<LicenseDto>
     {
         public int Id { get; set; }
         public LicenseType LicenseType { get; set; }

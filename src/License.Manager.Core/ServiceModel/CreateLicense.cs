@@ -33,7 +33,7 @@ namespace License.Manager.Core.ServiceModel
     [Route("/licenses", "POST, OPTIONS")]
     [Route("/products/{ProductId}/licenses", "POST, OPTIONS")]
     [Route("/customers/{CustomerId}/licenses", "POST, OPTIONS")]
-    public class CreateLicense : IReturn<Model.License>
+    public class CreateLicense : IReturn<LicenseDto>
     {
         public Guid LicenseId { get; set; }
         public LicenseType LicenseType { get; set; }

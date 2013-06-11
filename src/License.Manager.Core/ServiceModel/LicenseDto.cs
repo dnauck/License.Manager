@@ -24,21 +24,20 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using ServiceStack.ServiceHost;
+using System.Collections.Generic;
+using License.Manager.Core.Model;
 
 namespace License.Manager.Core.ServiceModel
 {
-    [Route("/licenses/{Id}", "GET, OPTIONS")]
-    [Route("/licenses/{LicenseId}", "GET, OPTIONS")]
-    [Route("/products/{ProductId}/licenses/{Id}", "GET, OPTIONS")]
-    [Route("/products/{ProductId}/licenses/{LicenseId}", "GET, OPTIONS")]
-    [Route("/customers/{CustomerId}/licenses/{Id}", "GET, OPTIONS")]
-    [Route("/customers/{CustomerId}/licenses/{LicenseId}", "GET, OPTIONS")]
-    public class GetLicense : IReturn<LicenseDto>
+    public class LicenseDto
     {
-        public int Id { get; set; }
         public Guid LicenseId { get; set; }
-        public int CustomerId { get; set; }
-        public int ProductId { get; set; }
+        public Portable.Licensing.LicenseType LicenseType { get; set; }
+        public int Quantity { get; set; }
+        public DateTime Expiration { get; set; }
+        public Customer Customer { get; set; }
+        public ProductDto Product { get; set; }
+        public Dictionary<string, string> ProductFeatures { get; set; }
+        public Dictionary<string, string> AdditionalAttributes { get; set; }
     }
 }
