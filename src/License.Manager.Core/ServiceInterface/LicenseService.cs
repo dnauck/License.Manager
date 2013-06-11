@@ -69,6 +69,10 @@ namespace License.Manager.Core.ServiceInterface
                 .Include<Model.License, Customer>(lic => lic.CustomerId)
                 .Include<Product>(lic => lic.ProductId)
                 .Load<Model.License>(issueRequest.Id);
+
+            if (license == null)
+                HttpError.NotFound("License not found!");
+
             var customer = documentSession.Load<Customer>(license.CustomerId);
             var product = documentSession.Load<Product>(license.ProductId);
 
