@@ -121,8 +121,6 @@ namespace License.Manager.Core.ServiceInterface
         public object Post(CreateLicense license)
         {
             var newLicense = new Model.License().PopulateWith(license);
-            newLicense.Product = documentSession.Load<Product>(license.ProductId);
-            newLicense.Customer = documentSession.Load<Customer>(license.CustomerId);
 
             documentSession.Store(newLicense);
             documentSession.SaveChanges();
