@@ -103,7 +103,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.Store(product);
             documentSession.SaveChanges();
 
-            return request.PopulateWith(product);
+            return new ProductDto().PopulateWith(product);
         }
 
         public object Delete(UpdateProduct request)
