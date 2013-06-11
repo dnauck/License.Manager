@@ -31,6 +31,7 @@ namespace License.Manager.Core.ServiceModel
 {
     public class LicenseDto
     {
+        public int Id { get; set; }
         public Guid LicenseId { get; set; }
         public Portable.Licensing.LicenseType LicenseType { get; set; }
         public int Quantity { get; set; }
