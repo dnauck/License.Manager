@@ -24,6 +24,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Configuration;
@@ -127,7 +128,7 @@ namespace License.Manager.Core.ServiceInterface
             if (product == null)
                 HttpError.NotFound("Product not found!");
 
-            return product;
+            return new ProductDto().PopulateWith(product);
         }
 
         public object Get(FindProducts request)
@@ -140,9 +141,16 @@ namespace License.Manager.Core.ServiceInterface
             if (!string.IsNullOrWhiteSpace(request.Description))
                 query = query.Search(c => c.Name, request.Description);
 
-            return query
+            var products = query
                 .OfType<Product>()
                 .ToList();
+
+            var result = new List<ProductDto>(products.Count);
+            result.AddRange(
+                products.Select(
+                    product => new ProductDto().PopulateWith(product)));
+
+            return result;
         }
     }
 }
