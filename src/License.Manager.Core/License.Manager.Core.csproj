@@ -131,6 +131,7 @@
     <Compile Include="ServiceModel\CreateLicense.cs" />
     <Compile Include="ServiceModel\GetLicenseTypes.cs" />
     <Compile Include="ServiceModel\IssueLicense.cs" />
+    <Compile Include="ServiceModel\LicenseDto.cs" />
     <Compile Include="ServiceModel\ProductDto.cs" />
     <Compile Include="ServiceModel\UpdateLicense.cs" />
     <Compile Include="UserSession.cs" />
