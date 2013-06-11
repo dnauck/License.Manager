@@ -59,11 +59,8 @@ namespace License.Manager.Core.ServiceInterface
             var product =
                 new Product
                     {
-                        Name = request.Name,
-                        Description = request.Description,
-                        ProductFeatures = request.ProductFeatures,
                         KeyPair = GenerateKeyPair(machineKeySection.DecryptionKey)
-                    };
+                    }.PopulateWith(request);
 
             documentSession.Store(product);
             documentSession.SaveChanges();
