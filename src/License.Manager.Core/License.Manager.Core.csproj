@@ -135,6 +135,7 @@
     <Compile Include="ServiceModel\ProductDto.cs" />
     <Compile Include="ServiceModel\UpdateLicense.cs" />
     <Compile Include="UserSession.cs" />
+    <Compile Include="Validation\CreateLicenseValidator.cs" />
     <Compile Include="Validation\CreateProductValidator.cs" />
     <Compile Include="Validation\CreateCustomerValidator.cs" />
   </ItemGroup>
