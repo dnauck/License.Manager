@@ -126,7 +126,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.SaveChanges();
 
             return
-                new HttpResult(HideProductKeyInformation(newLicense))
+                new HttpResult(new LicenseDto().PopulateWith(newLicense))
                     {
                         StatusCode = HttpStatusCode.Created,
                         Headers =
