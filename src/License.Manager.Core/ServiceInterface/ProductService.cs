@@ -99,7 +99,7 @@ namespace License.Manager.Core.ServiceInterface
 
             product.PopulateWith(request);
 
-            documentSession.Store(request);
+            documentSession.Store(product);
             documentSession.SaveChanges();
 
             return request.PopulateWith(product);
