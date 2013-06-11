@@ -24,13 +24,14 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Configuration;
 using License.Manager.Core.Model;
+using License.Manager.Core.Persistence;
 using License.Manager.Core.ServiceModel;
-using Raven.Abstractions.Extensions;
 using Raven.Client;
 using Raven.Client.Linq;
 using ServiceStack.CacheAccess;
@@ -174,34 +175,53 @@ namespace License.Manager.Core.ServiceInterface
                     };
         }
 
-        public object Get(GetLicense license)
+        public object Get(GetLicense request)
         {
-            return HideProductKeyInformation(documentSession.Load<Model.License>(license.Id));
+            var license = documentSession
+                .Include<Model.License, Customer>(lic => lic.CustomerId)
+                .Include<Product>(lic => lic.ProductId)
+                .Load<Model.License>(request.Id);
+
+            if (license == null)
+                HttpError.NotFound("License not found!");
+
+            return new LicenseDto
+                       {
+                           Customer = documentSession.Load<Customer>(license.CustomerId),
+                           Product = new ProductDto().PopulateWith(documentSession.Load<Product>(license.ProductId))
+                       }.PopulateWith(license);
         }
 
         public object Get(FindLicenses request)
         {
-            var query = documentSession.Query<Model.License>();
+            var query = documentSession.Query<License_ByProductOrCustomer.Result, License_ByProductOrCustomer>()
+                                       .Include<License_ByProductOrCustomer.Result, Customer>(license => license.CustomerId)
+                                       .Include<License_ByProductOrCustomer.Result, Product>(license => license.ProductId);
 
-            if (request.LicenseType > 0)
-                query = query.Where(lic => lic.LicenseType.Is(request.LicenseType));
+            //if (request.LicenseType.HasValue)
+            //    query = query.Where(lic => lic.LicenseType.Is(request.LicenseType.Value));
 
-            if (request.CustomerId > 0)
-                query = query.Where(lic => lic.Customer.Id == request.CustomerId);
+            if (request.CustomerId.HasValue)
+                query = query.Where(lic => lic.CustomerId == request.CustomerId.Value);
 
-            if (request.ProductId > 0)
-                query = query.Where(lic => lic.Product.Id == request.ProductId);
+            if (request.ProductId.HasValue)
+                query = query.Where(lic => lic.ProductId == request.ProductId.Value);
 
-            query.ForEach(license => HideProductKeyInformation(license));
-            return query.OfType<Model.License>().ToList();
-        }
+            var licenses = query
+                .OfType<Model.License>()
+                .ToList();
 
-        private static Model.License HideProductKeyInformation(Model.License license)
-        {
-            if (license.Product != null)
-                license.Product.KeyPair = null;
+            var result = new List<LicenseDto>(licenses.Count);
+            result.AddRange(
+                licenses.Select(
+                    license => new LicenseDto
+                                   {
+                                       Customer = documentSession.Load<Customer>(license.CustomerId),
+                                       Product =
+                                           new ProductDto().PopulateWith(documentSession.Load<Product>(license.ProductId))
+                                   }.PopulateWith(license)));
 
-            return license;
+            return result;
         }
     }
 }
