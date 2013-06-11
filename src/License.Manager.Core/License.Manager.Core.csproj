@@ -103,6 +103,7 @@
     <Compile Include="Model\KeyPair.cs" />
     <Compile Include="Model\License.cs" />
     <Compile Include="Model\Product.cs" />
+    <Compile Include="Persistence\License_ByProductOrCustomer.cs" />
     <Compile Include="Persistence\CustomerAllPropertiesIndex.cs" />
     <Compile Include="Persistence\Product_ByNameOrDescription.cs" />
     <Compile Include="Persistence\ProductAllPropertiesIndex.cs" />
