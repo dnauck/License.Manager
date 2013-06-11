@@ -38,8 +38,8 @@ namespace License.Manager.Core.ServiceModel
     {
         public LicenseType LicenseType { get; set; }
         public DateTime Expiration { get; set; }
-        public int CustomerId { get; set; }
-        public int ProductId { get; set; }
+        public int? CustomerId { get; set; }
+        public int? ProductId { get; set; }
 
         //public int? Page { get; set; }
         //public int? PageSize { get; set; }
