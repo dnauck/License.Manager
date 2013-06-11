@@ -74,7 +74,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.Store(customer);
             documentSession.SaveChanges();
 
-            return request.PopulateWith(customer);
+            return customer;
         }
 
         public object Delete(UpdateCustomer request)
