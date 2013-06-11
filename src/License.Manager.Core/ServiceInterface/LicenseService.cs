@@ -64,7 +64,12 @@ namespace License.Manager.Core.ServiceInterface
             if (machineKeySection == null || StringComparer.OrdinalIgnoreCase.Compare(machineKeySection.Decryption, "Auto") == 0)
                 throw new Exception(Properties.Resources.InvalidMachineKeySection);
 
-            var license = documentSession.Load<Model.License>(issueRequest.Id);
+            var license = documentSession
+                .Include<Model.License, Customer>(lic => lic.CustomerId)
+                .Include<Product>(lic => lic.ProductId)
+                .Load<Model.License>(issueRequest.Id);
+            var customer = documentSession.Load<Model.Customer>(license.CustomerId);
+            var product = documentSession.Load<Model.Product>(license.ProductId);
 
             var licenseFile =
                 Portable.Licensing.License.New()
@@ -72,15 +77,15 @@ namespace License.Manager.Core.ServiceInterface
                         .As(license.LicenseType)
                         .WithMaximumUtilization(license.Quantity)
                         .ExpiresAt(license.Expiration)
-                        .LicensedTo(customer =>
+                        .LicensedTo(c =>
                                         {
-                                            customer.Name = license.Customer.Name;
-                                            customer.Email = license.Customer.Email;
-                                            customer.Company = license.Customer.Company;
+                                            c.Name = customer.Name;
+                                            c.Email = customer.Email;
+                                            c.Company = customer.Company;
                                         })
                         .WithProductFeatures(license.ProductFeatures)
                         .WithAdditionalAttributes(license.AdditionalAttributes)
-                        .CreateAndSignWithPrivateKey(license.Product.KeyPair.EncryptedPrivateKey,
+                        .CreateAndSignWithPrivateKey(product.KeyPair.EncryptedPrivateKey,
                                                      machineKeySection.DecryptionKey);
 
             var issueToken = Guid.NewGuid();
