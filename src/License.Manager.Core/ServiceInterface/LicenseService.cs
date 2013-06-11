@@ -119,20 +119,25 @@ namespace License.Manager.Core.ServiceInterface
             return response;
         }
 
-        public object Post(CreateLicense license)
+        public object Post(CreateLicense request)
         {
-            var newLicense = new Model.License().PopulateWith(license);
+            var license = new Model.License().PopulateWith(request);
 
-            documentSession.Store(newLicense);
+            documentSession.Store(license);
             documentSession.SaveChanges();
 
             return
-                new HttpResult(new LicenseDto().PopulateWith(newLicense))
+                new HttpResult(new LicenseDto
+                                   {
+                                       Customer = documentSession.Load<Customer>(license.CustomerId),
+                                       Product =
+                                           new ProductDto().PopulateWith(documentSession.Load<Product>(license.ProductId))
+                                   }.PopulateWith(license))
                     {
                         StatusCode = HttpStatusCode.Created,
                         Headers =
                             {
-                                {HttpHeaders.Location, Request.AbsoluteUri.CombineWith(newLicense.Id)}
+                                {HttpHeaders.Location, Request.AbsoluteUri.CombineWith(license.Id)}
                             }
                     };
         }
