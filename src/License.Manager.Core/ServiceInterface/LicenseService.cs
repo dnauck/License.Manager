@@ -136,16 +136,26 @@ namespace License.Manager.Core.ServiceInterface
                     };
         }
 
-        public object Put(UpdateLicense license)
+        public object Put(UpdateLicense request)
         {
-            var updateLicense = documentSession
-                .Load<Model.License>(license.Id)
-                .PopulateWith(license);
+            var license = documentSession
+                .Include<Model.License, Customer>(lic => lic.CustomerId)
+                .Include<Product>(lic => lic.ProductId)
+                .Load<Model.License>(request.Id);
 
-            documentSession.Store(updateLicense);
+            if (license == null)
+                HttpError.NotFound("License not found!");
+
+            license.PopulateWith(request);
+
+            documentSession.Store(license);
             documentSession.SaveChanges();
 
-            return HideProductKeyInformation(updateLicense);
+            return new LicenseDto
+                       {
+                           Customer = documentSession.Load<Customer>(license.CustomerId),
+                           Product = new ProductDto().PopulateWith(documentSession.Load<Product>(license.ProductId))
+                       }.PopulateWith(license);
         }
 
         public object Delete(UpdateLicense license)
