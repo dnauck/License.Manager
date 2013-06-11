@@ -69,8 +69,8 @@ namespace License.Manager.Core.ServiceInterface
                 .Include<Model.License, Customer>(lic => lic.CustomerId)
                 .Include<Product>(lic => lic.ProductId)
                 .Load<Model.License>(issueRequest.Id);
-            var customer = documentSession.Load<Model.Customer>(license.CustomerId);
-            var product = documentSession.Load<Model.Product>(license.ProductId);
+            var customer = documentSession.Load<Customer>(license.CustomerId);
+            var product = documentSession.Load<Product>(license.ProductId);
 
             var licenseFile =
                 Portable.Licensing.License.New()
