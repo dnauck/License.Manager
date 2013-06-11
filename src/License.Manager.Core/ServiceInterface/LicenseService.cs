@@ -158,9 +158,13 @@ namespace License.Manager.Core.ServiceInterface
                        }.PopulateWith(license);
         }
 
-        public object Delete(UpdateLicense license)
+        public object Delete(UpdateLicense request)
         {
-            documentSession.Delete(documentSession.Load<Model.License>(license.Id));
+            var license = documentSession.Load<Model.License>(request.Id);
+            if (license == null)
+                HttpError.NotFound("License not found!");
+
+            documentSession.Delete(license);
             documentSession.SaveChanges();
 
             return
