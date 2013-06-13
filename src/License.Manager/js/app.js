@@ -53,7 +53,7 @@ app.controller('AppController', function ($scope, $rootScope, $location, $log, A
 function toAssociativeArray(array) {
     var associativeArray = [];
     angular.forEach(array, function (val, key) {
-        associativeArray[key] = { "Key": key, "Value": val };
+        associativeArray.push({ "Key": key, "Value": val });
     });
 
     return associativeArray;
