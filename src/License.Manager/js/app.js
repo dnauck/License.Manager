@@ -13,9 +13,9 @@
                     when('/products/:productId/licenses/add', { templateUrl: 'partials/license-add.html', controller: LicenseAddCtrl }).
                     when('/customers/:customerId/licenses', { templateUrl: 'partials/license-list.html', controller: LicenseListCtrl }).
                     when('/customers/:customerId/licenses/add', { templateUrl: 'partials/license-add.html', controller: LicenseAddCtrl }).
+                    when('/licenses/add', { templateUrl: 'partials/license-add.html', controller: LicenseAddCtrl }).
                     when('/licenses', { templateUrl: 'partials/license-list.html', controller: LicenseListCtrl }).
                     when('/licenses/:id', { templateUrl: 'partials/license-detail.html', controller: LicenseDetailsCtrl }).
-                    when('/licenses/add', { templateUrl: 'partials/license-add.html', controller: LicenseAddCtrl }).
                     when('/login', { templateUrl: 'partials/login.html', controller: LoginCtrl }).
                     when('/', { templateUrl: 'partials/login.html', controller: LoginCtrl }).
                     otherwise({ redirectTo: '/' });
