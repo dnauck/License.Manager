@@ -1,0 +1,86 @@
+﻿<div class="jumbotron">
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <form name="EditLicenseForm" class="form-horizontal">
+        <fieldset>
+            <legend>License details</legend>
+
+            <div class="control-group">
+                <label class="control-label" for="Product">Product</label>
+                <div class="controls">
+                    <input type="text" name="Product" class="input-medium" ng-model="license.product.name" disabled>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: EditLicenseForm.Type.$invalid }">
+                <label class="control-label" for="Type">Type</label>
+                <div class="controls">
+                    <select name="Type" class="input-medium" ng-model="license.licenseType" ng-options="type for type in licenseTypes" required>
+                    </select>
+                    <span class="help-inline" ng-show="EditLicenseForm.Type.$dirty && EditLicenseForm.Type.$error.required">Please specifiy the license's type.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: EditLicenseForm.Quantity.$invalid }">
+                <label class="control-label" for="Quantity">Quantity</label>
+                <div class="controls">
+                    <input type="number" name="Quantity" class="input-small" ng-model="license.quantity" min="0" integer required>
+                    <span class="help-inline" ng-show="EditLicenseForm.Quantity.$error.min">The value must be greater than or equal to zero!</span>
+                    <span class="help-inline" ng-show="EditLicenseForm.Quantity.$dirty && EditLicenseForm.Quantity.$error.required">Please specifiy the license's quantity.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: EditLicenseForm.Expiration.$invalid }">
+                <label class="control-label" for="Expiration">Expiration</label>
+                <div class="controls">
+                    <input type="date" name="Expiration" class="input-medium" ng-model="license.expiration" required>
+                    <span class="help-inline" ng-show="EditLicenseForm.Expiration.$dirty && EditLicenseForm.Expiration.$error.required">Please specifiy the license's expiration date.</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="Customer">Customer</label>
+                <div class="controls">
+                    <input type="text" name="Customer" class="input-medium" ng-model="license.customer.name" disabled>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Product Features <i class="icon-plus-sign" title="Add new product feature" ng-click="addProductFeature()"></i></label>
+                <div class="controls">
+                    <ul class="unstyled">
+                        <li ng-repeat="feature in license.productFeatures">
+                            <div class="input-append">
+                                <select class="span3" ng-model="feature.Key" ng-options="feature for feature in license.product.productFeatures" required></select>
+                                <input class="span2" type="text" ng-model="feature.Value" required>
+                                <button class="btn" type="button" ng-click="removeProductFeature($index)"><i class="icon-remove-sign"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Additional Attributes <i class="icon-plus-sign" title="Add new attribute" ng-click="addAdditionalAttribute()"></i></label>
+                <div class="controls">
+                    <ul class="unstyled">
+                        <li ng-repeat="attr in license.additionalAttributes">
+                            <div class="input-append">
+                                <input class="span3" type="text" ng-model="attr.Key" required>
+                                <input class="span2" type="text" ng-model="attr.Value" required>
+                                <button class="btn" type="button" ng-click="removeAdditionalAttribute($index)"><i class="icon-remove-sign"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="updateLicense(license)" ng-disabled="EditLicenseForm.$invalid">Save changes</button>
+                <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

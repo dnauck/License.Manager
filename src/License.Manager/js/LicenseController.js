@@ -56,6 +56,108 @@
 
 //LicenseListCtrl.$inject = ['$scope', '$location', '$routeParams', 'License'];
 
+function LicenseDetailsCtrl($scope, $location, $routeParams, $log, $http, License) {
+
+    $scope.notificationAlert = { show: false, message: '', type: 'info' };
+    
+    $scope.emptyModel = {
+        productId: '',
+        customerId: '',
+        productFeatures: [],
+        additionalAttributes: []
+    };
+    $scope.license = angular.copy($scope.emptyModel);
+
+    $scope.entityId = '';
+    $scope.entity = '';
+
+    if ($routeParams.productId) {
+        $scope.entityId = $routeParams.productId;
+        $scope.entity = 'products';
+    } else if ($routeParams.customerId) {
+        $scope.entityId = $routeParams.customerId;
+        $scope.entity = 'customers';
+    }
+    
+    $http({ method: 'GET', url: 'api/licenses/types' }).
+        success(function (data, status, headers, config) {
+            $scope.licenseTypes = data;
+        }).
+        error(function (data, status, headers, config) {
+            $scope.notificationAlert.show = true;
+            $scope.notificationAlert.type = 'error';
+            $scope.notificationAlert.message = data.responseStatus.message;
+        });
+    
+    $scope.id = $routeParams.id;
+    $scope.license = License.get({ id: $scope.id },
+        function (success, getResponseHeaders) {
+            $scope.license.productFeatures = toAssociativeArray($scope.license.productFeatures);
+            $scope.license.additionalAttributes = toAssociativeArray($scope.license.additionalAttributes);
+        },
+        function (error, getResponseHeaders) {
+            $scope.notificationAlert.show = true;
+            $scope.notificationAlert.type = 'error';
+            $scope.notificationAlert.message = error.data.responseStatus.message;
+        });
+
+    $scope.addProductFeature = function () {
+        $scope.license.productFeatures.push({ "Key": "", "Value": "Product Feature Value" });
+    };
+
+    $scope.removeProductFeature = function (index) {
+        $scope.license.productFeatures.splice(index, 1);
+    };
+
+    $scope.addAdditionalAttribute = function () {
+        $scope.license.additionalAttributes.push({ "Key": "New Attribute", "Value": "New Attribute Value" });
+    };
+
+    $scope.removeAdditionalAttribute = function (index) {
+        $scope.license.additionalAttributes.splice(index, 1);
+    };
+    
+
+    $scope.updateLicense = function (license) {
+
+        var updateData = angular.copy(license);
+        updateData.productId = license.product.id;
+        updateData.product = undefined;
+        updateData.customerId = license.customer.id;
+        updateData.customer = undefined;
+
+        updateData.productFeatures = toDictionary(license.productFeatures);
+        updateData.additionalAttributes = toDictionary(license.additionalAttributes);
+        
+        $scope.license = License.update(updateData,
+            function (success, getResponseHeaders) {
+                $scope.license.productFeatures = toAssociativeArray($scope.license.productFeatures);
+                $scope.license.additionalAttributes = toAssociativeArray($scope.license.additionalAttributes);
+                
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'success';
+                $scope.notificationAlert.message = 'Successfuly updated!';
+            },
+            function (error, getResponseHeaders) {
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'error';
+                $scope.notificationAlert.message = error.data.responseStatus.message;
+            });
+    };
+
+    $scope.deleteLicense = function (license) {
+        license.$delete({},
+            function (success, getResponseHeaders) {
+            },
+            function (error, getResponseHeaders) {
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'error';
+                $scope.notificationAlert.message = error.data.responseStatus.message;
+            });
+    };
+}
+
+//LicenseDetailsCtrl.$inject = ['$scope', '$routeParams', 'License'];
 
 function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, Customer, Product) {
 
