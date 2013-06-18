@@ -1,8 +1,8 @@
-﻿function LoginCtrl($scope, $location, $log, Auth, authInterceptorService) {
+﻿function LoginCtrl($scope, $location, $log, $window, Auth, authInterceptorService) {
 
     $scope.notificationAlert = { show: false, message: '', type: 'info' };
     
-    $scope.defaultAuthData = { rememberMe: false };
+    $scope.defaultAuthData = { rememberMe: false, openIdUrl: '' };
     $scope.authData = angular.copy($scope.defaultAuthData);
 
     $scope.login = function(loginData) {
@@ -21,6 +21,22 @@
                 $scope.notificationAlert.type = 'error';
                 $scope.notificationAlert.message = error.data.responseStatus.message;
             });
+    };
+
+    $scope.signInWithGoogle = function() {
+        $window.location = '/api/auth/googleopenid';
+    };
+    
+    $scope.signInWithYahoo = function() {
+        $window.location = '/api/auth/yahooopenid';
+    };
+    
+    $scope.signInWithMyOpenId = function () {
+        $window.location = '/api/auth/myopenid';
+    };
+    
+    $scope.signInWithOpenId = function (openIdUrl) {
+        $window.location = '/api/auth/openid?OpenIdUrl=' + openIdUrl;
     };
     
     $scope.$on('event:auth-loginRequired', function (event, response) {

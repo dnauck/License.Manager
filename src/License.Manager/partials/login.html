@@ -40,7 +40,7 @@
         <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
             {{notificationAlert.message}}
         </div>
-        <form name="AuthForm" class="form-signin">
+        <form name="AuthForm" class="form-signin" novalidate>
             <h2 class="form-signin-heading">Please sign in</h2>
             <input type="text" class="input-block-level" placeholder="Username" ng-model="authData.userName" required>
             <input type="password" class="input-block-level" placeholder="Password" ng-model="authData.password" required>
@@ -49,6 +49,18 @@
                 Remember me
             </label>
             <button class="btn btn-large btn-primary" type="submit" ng-click="login(authData)" ng-disabled="AuthForm.$invalid">Sign in</button>
+            <hr />
+            <h4>Or, sign in with:</h4>
+            <a href="" ng-click="signInWithGoogle()">
+                <img class="img-rounded" alt="Sign in with Google" src="../img/google.gif"></a>
+            <a href="" ng-click="signInWithYahoo()">
+                <img class="img-rounded" alt="Sign in with Yahoo" src="../img/yahoo.gif"></a>
+            <a href="" ng-click="signInWithMyOpenId()">
+                <img class="img-rounded" alt="Sign in with My OpenId" src="../img/myopenid.gif"></a>
+            <hr />
+            <h4>Or, manually enter your OpenID:</h4>
+            <input name="OpenIdUrl" type="text" class="input-block-level" placeholder="http://myopenid.com/" ng-model="authData.openIdUrl">
+            <button class="btn btn-large btn-primary" type="button" ng-click="signInWithOpenId(authData.openIdUrl)" ng-disabled="authData.openIdUrl == ''">Sign in with OpenId</button>
         </form>
     </div>
 </body>

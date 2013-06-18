@@ -26,6 +26,7 @@
 using Funq;
 using Raven.Client;
 using Raven.Client.Indexes;
+using ServiceStack.Authentication.OpenId;
 using ServiceStack.Authentication.RavenDb;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -109,9 +110,16 @@ namespace License.Manager.Core
                                         new IAuthProvider[]
                                             {
                                                 new CredentialsAuthProvider(appSettings),
-                                                //new FacebookAuthProvider(appSettings),
-                                                //new TwitterAuthProvider(appSettings),
-                                                //new BasicAuthProvider(appSettings),
+                                                //new TwitterAuthProvider(appSettings), //Sign-in with Twitter
+                                                //new FacebookAuthProvider(appSettings), //Sign-in with Facebook
+                                                //new DigestAuthProvider(appSettings), //Sign-in with Digest Auth
+                                                //new BasicAuthProvider(), //Sign-in with Basic Auth
+
+                                                //Register new OpenId providers you want to allow authentication with
+                                                new GoogleOpenIdOAuthProvider(appSettings), //Sign-in with Goolge OpenId
+                                                new YahooOpenIdOAuthProvider(appSettings), //Sign-in with Yahoo OpenId
+                                                new MyOpenIdOAuthProvider(appSettings), //Sign-in with MyOpenId
+                                                new OpenIdOAuthProvider(appSettings),  //Sign-in with any Custom OpenId Provider
                                             }));
 
             //Default route: /register

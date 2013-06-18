@@ -40,10 +40,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\..\packages\DotNetOpenAuth.Ultimate.4.3.0.13117\lib\net45-full\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="ServiceStack, Version=3.9.48.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\ServiceStack.3.9.48\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Authentication.OpenId">
+      <HintPath>..\..\packages\ServiceStack.Authentication.OpenId.3.9.49\lib\net35\ServiceStack.Authentication.OpenId.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=3.9.48.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,6 +91,10 @@
     <Content Include="Global.asax" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\google.gif" />
+    <Content Include="img\myopenid.gif" />
+    <Content Include="img\openid.gif" />
+    <Content Include="img\yahoo.gif" />
     <Content Include="index.html" />
     <Content Include="js\app.js" />
     <Content Include="js\AuthController.js" />
