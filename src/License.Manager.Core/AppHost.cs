@@ -125,8 +125,8 @@ namespace License.Manager.Core
             //Default route: /register
             Plugins.Add(new RegistrationFeature());
 
-            container.Register<IUserAuthRepository>(c =>
-                                                    new RavenUserAuthRepository(c.Resolve<IDocumentStore>()));
+            container.Register(c => new RavenUserAuthRepository(c.Resolve<IDocumentStore>()));
+            container.Register<IUserAuthRepository>(c => c.Resolve<RavenUserAuthRepository>());
         }
     }
 }
