@@ -1,5 +1,5 @@
 ﻿var app =
-    angular.module('license-manager', ['http-auth-interceptor', 'AuthServices', 'CustomerServices', 'ProductServices', 'LicenseServices']).
+    angular.module('license-manager', ['http-auth-interceptor', 'AuthServices', 'CustomerServices', 'ProductServices', 'LicenseServices', 'AccountServices']).
         config(['$routeProvider', '$locationProvider',
             function($routeProvider, $locationProvider) {
                 $routeProvider.
@@ -16,6 +16,8 @@
                     when('/licenses/add', { templateUrl: 'partials/license-add.html', controller: LicenseAddCtrl }).
                     when('/licenses', { templateUrl: 'partials/license-list.html', controller: LicenseListCtrl }).
                     when('/licenses/:id', { templateUrl: 'partials/license-detail.html', controller: LicenseDetailsCtrl }).
+                    when('/accounts', { templateUrl: 'partials/account-list.html', controller: AccountListCtrl }).
+                    when('/accounts/:id', { templateUrl: 'partials/account-detail.html', controller: AccountDetailsCtrl }).
                     when('/login', { templateUrl: 'partials/login.html', controller: LoginCtrl }).
                     when('/', { templateUrl: 'partials/login.html', controller: LoginCtrl }).
                     otherwise({ redirectTo: '/' });

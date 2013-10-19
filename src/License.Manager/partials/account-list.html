@@ -1,0 +1,29 @@
+﻿<div class="jumbotron">
+    <h1>Accounts</h1>
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <table class="table table-striped">
+        <caption>List of all accounts</caption>
+        <thead>
+            <tr>
+                <th>Login</th>
+                <th>Name</th>
+                <th>E-Mail</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="account in accounts">
+                <td>{{account.userName}}</td>
+                <td>{{account.displayName}}</td>
+                <td>{{account.primaryEmail}}</td>
+                <td>
+                    <a ng-href="#!/accounts/{{account.id}}">Details</a>
+                    <a ng-href="#" ng-click="deleteAccount(account)">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-large" ng-href="#!/accounts/add"><i class="icon-plus-sign"></i> Add Account</a>
+</div>

@@ -119,9 +119,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ServiceInterface\AccountService.cs" />
     <Compile Include="ServiceInterface\LicenseService.cs" />
     <Compile Include="ServiceInterface\CustomerService.cs" />
     <Compile Include="ServiceInterface\ProductService.cs" />
+    <Compile Include="ServiceModel\AccountDto.cs" />
+    <Compile Include="ServiceModel\FindAccounts.cs" />
+    <Compile Include="ServiceModel\GetAccount.cs" />
     <Compile Include="ServiceModel\UpdateCustomer.cs" />
     <Compile Include="ServiceModel\CreateCustomer.cs" />
     <Compile Include="ServiceModel\GetCustomer.cs" />
