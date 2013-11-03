@@ -46,11 +46,14 @@ namespace License.Manager.Core.ServiceInterface
     {
         private readonly IDocumentSession documentSession;
         private readonly RavenUserAuthRepository userAuthRepository;
+        private readonly RegistrationService registrationService;
 
-        public AccountService(IDocumentSession documentSession, RavenUserAuthRepository userAuthRepository)
+        public AccountService(IDocumentSession documentSession, RavenUserAuthRepository userAuthRepository, RegistrationService registrationService)
         {
             this.documentSession = documentSession;
             this.userAuthRepository = userAuthRepository;
+            this.registrationService = registrationService;
+            registrationService.RequestContext = RequestContext;
         }
 
         //public object Put(UpdateCustomer request)
@@ -67,64 +70,31 @@ namespace License.Manager.Core.ServiceInterface
         //    return customer;
         //}
 
-        [Route("/accounts/oauthproviders", "GET, OPTIONS")]
-        public class GetOAuthProviders : IReturn<List<OAuthProvider>>
+        public object Post(Registration request)
         {
-        }
-
-        public class OAuthProvider
-        {
-            public string Name { get; set; }
-            public string DisplayName { get; set; }
-        }
-
-        public object Get(GetOAuthProviders request)
-        {
-            var result = new List<OAuthProvider>
-                             {
-                                 new OAuthProvider()
-                                     {
-                                         Name = GoogleOpenIdOAuthProvider.Name,
-                                         DisplayName = "Google"
-                                     },
-                                 new OAuthProvider()
-                                     {
-                                         Name = YahooOpenIdOAuthProvider.Name,
-                                         DisplayName = "Yahoo"
-                                     },
-                                 new OAuthProvider()
-                                     {
-                                         Name = MyOpenIdOAuthProvider.Name,
-                                         DisplayName = "MyOpenId"
-                                     },
-                                 new OAuthProvider()
-                                     {
-                                         Name = OpenIdOAuthProvider.DefaultName,
-                                         DisplayName = "OpenId"
-                                     }
-                             };
-
-            return result;
+            return registrationService.Post(request);
         }
 
         public object Get(GetAccount request)
         {
-            if (request.Id.HasValue)
-            {
-                var accountId = string.Concat("UserAuths/", request.Id.Value.ToString(CultureInfo.InvariantCulture));
-                var account = userAuthRepository.GetUserAuth(string.Concat("UserAuths/", request.Id.Value.ToString(CultureInfo.InvariantCulture)));
-                if (account == null)
-                    HttpError.NotFound("Account not found!");
+            var accountId = string.Concat("UserAuths/",
+                request.Id.HasValue
+                    ? request.Id.Value.ToString(CultureInfo.InvariantCulture)
+                    : SessionAs<UserSession>().UserAuthId);
 
-                var providers = Get((GetOAuthProviders) null) as List<OAuthProvider>;
-                var activeProviders = userAuthRepository.GetUserOAuthProviders(account.Id.ToString());
-                //var a2 = activeProviders.SelectMany(provider => )
-                                  //.Select(x => providers.First(f => f.Name == x.Provider));
-                
-                return new AccountDto().PopulateWith(account);
-            }
+            var account = userAuthRepository.GetUserAuth(accountId);
+            if (account == null)
+                throw HttpError.NotFound("Account not found!");
 
-            return new AccountDto().PopulateWith(SessionAs<UserSession>());
+            var accountDto =
+                new AccountDto
+                {
+                    User = account,
+                    OAuthProviders =
+                        userAuthRepository.GetUserOAuthProviders(account.Id.ToString(CultureInfo.InvariantCulture))
+                };
+
+            return accountDto;
         }
 
         public object Get(FindAccounts request)
