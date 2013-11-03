@@ -58,3 +58,31 @@ function AccountDetailsCtrl($scope, $routeParams, Account) {
 }
 
 //AccountDetailsCtrl.$inject = ['$scope', '$routeParams', 'Customer'];
+
+function AccountAddCtrl($scope, $location, Account) {
+
+    $scope.notificationAlert = { show: false, message: '', type: 'info' };
+    $scope.emptyModel = {};
+
+    $scope.addAccount = function (newAccount) {
+        var account = new Account(newAccount);
+
+        account.$save({},
+            function (success, getResponseHeaders) {
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'success';
+                $scope.notificationAlert.message = 'Successfuly created!';
+
+                $location.path('/accounts');
+            },
+            function (error, getResponseHeaders) {
+                $scope.notificationAlert.show = true;
+                $scope.notificationAlert.type = 'error';
+                $scope.notificationAlert.message = error.data.responseStatus.message;
+            });
+    };
+
+    $scope.cancel = function () {
+        $scope.account = angular.copy($scope.emptyModel);
+    };
+}
