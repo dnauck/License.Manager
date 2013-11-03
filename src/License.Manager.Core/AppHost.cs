@@ -31,6 +31,7 @@ using ServiceStack.Authentication.RavenDb;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
+using ServiceStack.FluentValidation;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.ServiceInterface.Cors;
@@ -122,11 +123,16 @@ namespace License.Manager.Core
                                                 new OpenIdOAuthProvider(appSettings),  //Sign-in with any Custom OpenId Provider
                                             }));
 
-            //Default route: /register
-            Plugins.Add(new RegistrationFeature());
-
             container.Register(c => new RavenUserAuthRepository(c.Resolve<IDocumentStore>()));
             container.Register<IUserAuthRepository>(c => c.Resolve<RavenUserAuthRepository>());
+
+            //Default route: /register
+            //Plugins.Add(new RegistrationFeature());
+
+            container.RegisterAutoWired<RegistrationService>().ReusedWithin(ReuseScope.None);
+            container.RegisterAs<RegistrationValidator, IValidator<Registration>>();
+
+            Routes.Add<Registration>("/accounts", "POST, OPTIONS");
         }
     }
 }
