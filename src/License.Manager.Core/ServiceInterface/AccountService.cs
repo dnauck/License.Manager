@@ -56,20 +56,6 @@ namespace License.Manager.Core.ServiceInterface
             registrationService.RequestContext = RequestContext;
         }
 
-        //public object Put(UpdateCustomer request)
-        //{
-        //    var customer = documentSession.Load<Customer>(request.Id);
-        //    if (customer == null)
-        //        HttpError.NotFound("Customer not found!");
-
-        //    customer.PopulateWith(request);
-
-        //    documentSession.Store(customer);
-        //    documentSession.SaveChanges();
-
-        //    return customer;
-        //}
-
         public object Post(Registration request)
         {
             return registrationService.Post(request);
