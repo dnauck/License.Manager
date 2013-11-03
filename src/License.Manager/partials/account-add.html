@@ -1,0 +1,45 @@
+﻿<div class="jumbotron">
+    <div class="alert" ng-show="notificationAlert.show" ng-class="{'alert-error': notificationAlert.type == 'error', 'alert-success': notificationAlert.type == 'success', 'alert-info': notificationAlert.type == 'info'}">
+        {{notificationAlert.message}}
+    </div>
+    <form name="AddAccountForm" class="form-horizontal">
+        <fieldset>
+            <legend>Add Account</legend>
+
+            <div class="control-group" ng-class="{ error: AddAccountForm.UserName.$invalid }">
+                <label class="control-label" for="UserName">Login</label>
+                <div class="controls">
+                    <input type="text" name="UserName" class="input-large" ng-model="account.userName" placeholder="Login of the account..." required>
+                    <span class="help-inline" ng-show="AddAccountForm.UserName.$dirty && AddAccountForm.UserName.$error.required">Please specifiy the accounts's user name.</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddAccountForm.DisplayName.$invalid }">
+                <label class="control-label" for="DisplayName">Name</label>
+                <div class="controls">
+                    <input type="text" name="DisplayName" class="input-large" ng-model="account.displayName" placeholder="The account's name...">
+                </div>
+            </div>
+
+            <div class="control-group" ng-class="{ error: AddAccountForm.Email.$invalid }">
+                <label class="control-label" for="Email">Email</label>
+                <div class="controls">
+                    <input type="email" name="Email" class="input-large" ng-model="account.email" placeholder="Email address…" required>
+                    <span class="help-inline" ng-show="AddAccountForm.Email.$error.email">This is not a valid email.</span>
+                </div>
+            </div>
+            
+            <div class="control-group" ng-class="{ error: AddAccountForm.Password.$invalid }">
+                <label class="control-label" for="Password">Password</label>
+                <div class="controls">
+                    <input type="password" name="Password" class="input-large" ng-model="account.password" placeholder="Password…" required>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="addAccount(account)" ng-disabled="AddAccountForm.$invalid">Add account</button>
+                <button type="button" class="btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

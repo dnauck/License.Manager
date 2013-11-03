@@ -23,19 +23,14 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using License.Manager.Core.Model;
-using License.Manager.Core.Persistence;
 using License.Manager.Core.ServiceModel;
 using Raven.Client;
-using ServiceStack.Authentication.OpenId;
 using ServiceStack.Authentication.RavenDb;
 using ServiceStack.Common;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 
@@ -46,19 +41,42 @@ namespace License.Manager.Core.ServiceInterface
     {
         private readonly IDocumentSession documentSession;
         private readonly RavenUserAuthRepository userAuthRepository;
-        private readonly RegistrationService registrationService;
 
-        public AccountService(IDocumentSession documentSession, RavenUserAuthRepository userAuthRepository, RegistrationService registrationService)
+        public AccountService(IDocumentSession documentSession, RavenUserAuthRepository userAuthRepository)
         {
             this.documentSession = documentSession;
             this.userAuthRepository = userAuthRepository;
-            this.registrationService = registrationService;
-            registrationService.RequestContext = RequestContext;
+            
         }
 
-        public object Post(Registration request)
+        public object Post(CreateAccount request)
         {
-            return registrationService.Post(request);
+            var newUserAuth = request.TranslateTo<UserAuth>();
+            newUserAuth.PrimaryEmail = request.Email;
+
+            var newUser = userAuthRepository.CreateUserAuth(newUserAuth, request.Password);
+
+            return
+                new HttpResult(newUser)
+                {
+                    StatusCode = HttpStatusCode.Created,
+                    Headers =
+                    {
+                        {HttpHeaders.Location, Request.AbsoluteUri.CombineWith(newUser.Id)}
+                    }
+                };
+        }
+
+        public object Put(UpdateAccount request)
+        {
+            var newUserAuth = request.TranslateTo<UserAuth>();
+            newUserAuth.PrimaryEmail = request.Email;
+
+            var existingUser = userAuthRepository.GetUserAuth(SessionAs<UserSession>(), null);
+
+            var newUser = userAuthRepository.UpdateUserAuth(existingUser, newUserAuth, request.Password);
+
+            return newUser;
         }
 
         public object Get(GetAccount request)

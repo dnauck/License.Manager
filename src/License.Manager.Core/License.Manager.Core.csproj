@@ -124,6 +124,8 @@
     <Compile Include="ServiceInterface\CustomerService.cs" />
     <Compile Include="ServiceInterface\ProductService.cs" />
     <Compile Include="ServiceModel\AccountDto.cs" />
+    <Compile Include="ServiceModel\UpdateAccount.cs" />
+    <Compile Include="ServiceModel\CreateAccount.cs" />
     <Compile Include="ServiceModel\FindAccounts.cs" />
     <Compile Include="ServiceModel\GetAccount.cs" />
     <Compile Include="ServiceModel\UpdateCustomer.cs" />
@@ -145,6 +147,8 @@
     <Compile Include="ServiceModel\ProductDto.cs" />
     <Compile Include="ServiceModel\UpdateLicense.cs" />
     <Compile Include="UserSession.cs" />
+    <Compile Include="Validation\UpdateAccountValidator.cs" />
+    <Compile Include="Validation\CreateAccountValidator.cs" />
     <Compile Include="Validation\CreateLicenseValidator.cs" />
     <Compile Include="Validation\CreateProductValidator.cs" />
     <Compile Include="Validation\CreateCustomerValidator.cs" />

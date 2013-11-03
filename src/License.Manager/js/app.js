@@ -16,6 +16,7 @@
                     when('/licenses/add', { templateUrl: 'partials/license-add.html', controller: LicenseAddCtrl }).
                     when('/licenses', { templateUrl: 'partials/license-list.html', controller: LicenseListCtrl }).
                     when('/licenses/:id', { templateUrl: 'partials/license-detail.html', controller: LicenseDetailsCtrl }).
+                    when('/accounts/add', { templateUrl: 'partials/account-add.html', controller: AccountAddCtrl }).
                     when('/accounts', { templateUrl: 'partials/account-list.html', controller: AccountListCtrl }).
                     when('/accounts/:id', { templateUrl: 'partials/account-detail.html', controller: AccountDetailsCtrl }).
                     when('/login', { templateUrl: 'partials/login.html', controller: LoginCtrl }).

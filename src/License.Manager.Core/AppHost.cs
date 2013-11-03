@@ -125,14 +125,6 @@ namespace License.Manager.Core
 
             container.Register(c => new RavenUserAuthRepository(c.Resolve<IDocumentStore>()));
             container.Register<IUserAuthRepository>(c => c.Resolve<RavenUserAuthRepository>());
-
-            //Default route: /register
-            //Plugins.Add(new RegistrationFeature());
-
-            container.RegisterAutoWired<RegistrationService>().ReusedWithin(ReuseScope.None);
-            container.RegisterAs<RegistrationValidator, IValidator<Registration>>();
-
-            Routes.Add<Registration>("/accounts", "POST, OPTIONS");
         }
     }
 }
