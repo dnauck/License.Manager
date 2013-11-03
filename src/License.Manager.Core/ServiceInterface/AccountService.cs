@@ -78,6 +78,31 @@ namespace License.Manager.Core.ServiceInterface
             return newUser;
         }
 
+        public object Delete(UpdateAccount request)
+        {
+            var accountId = string.Concat("UserAuths/", request.Id.ToString(CultureInfo.InvariantCulture));
+            var account = userAuthRepository.GetUserAuth(accountId);
+            if (account == null)
+                throw HttpError.NotFound("Account not found!");
+
+            var oAuthProviders =
+                userAuthRepository.GetUserOAuthProviders(account.Id.ToString(CultureInfo.InvariantCulture));
+
+            foreach (var userOAuthProvider in oAuthProviders)
+            {
+                documentSession.Delete(userOAuthProvider);
+            }
+
+            documentSession.Delete(account);
+            documentSession.SaveChanges();
+
+            return
+                new HttpResult
+                {
+                    StatusCode = HttpStatusCode.NoContent,
+                };
+        }
+
         public object Get(GetAccount request)
         {
             var accountId = string.Concat("UserAuths/",
