@@ -46,7 +46,6 @@ namespace License.Manager.Core.ServiceInterface
         {
             this.documentSession = documentSession;
             this.userAuthRepository = userAuthRepository;
-            
         }
 
         public object Post(CreateAccount request)
