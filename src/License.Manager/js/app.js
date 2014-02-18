@@ -47,8 +47,8 @@ app.controller('AppController', function ($scope, $rootScope, $location, $log, A
 
         if ($rootScope.authReferrerUrl != undefined)
             $location.path($rootScope.authReferrerUrl);
-
-        $location.path('/');
+        else
+            $location.path('/');
     });
 });
 
